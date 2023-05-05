@@ -1,6 +1,5 @@
 const User = require('./User')
-const Comment = require('./Comment')
-const Post = require('./Post')
+
 
 // Post.belongsTo(User, {
 //     onDelete: 'CASCADE'
@@ -14,4 +13,4 @@ const Post = require('./Post')
 
 
 
-module.exports = {User, Post, Comment}
+module.exports = {User}
