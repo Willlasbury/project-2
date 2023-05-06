@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech Blog</title>
+  <title>Project 2</title>
 </head>
 
 <body>
@@ -12,8 +12,17 @@
     <h1>blah Blog</h1>
   </header>
   <nav>
-    <a href="/">Home</a>
-  </nav>
+      <ul>
+        <a href="/">Home</a>
+        <a href="/">Dashboard</a>
+        {{#if logged_in}}
+        <button id="logout">Logout</button>
+        <script src='/js/logout.js'></script>
+          {{else}}
+          <a href="login">Login</a>
+        {{/if}}
+      </ul>
+    </nav>
   <main>
     <div class="gallery">
       {{{body}}}
