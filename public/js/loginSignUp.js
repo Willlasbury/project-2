@@ -21,7 +21,7 @@ loginForm.addEventListener("submit", async (event) => {
     if (response.ok) {
       location.href = "/";
     } else {
-      alert("some error");
+      alert("Username or password was incorrect");
     }
   } catch (err) {
     console.log("error:", error);
