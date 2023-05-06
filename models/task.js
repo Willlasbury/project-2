@@ -10,15 +10,15 @@ Task.init(
       allowNull: false,
     },
     due_date: {
-      type: DataTypes.TIMESTAMP,
+      type: DataTypes.DATE,
       allowNull: true,
     },
     description: {
-      type: TEXT,
+      type: DataTypes.TEXT,
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: False,
+      allowNull: false,
     },
   },
   {
