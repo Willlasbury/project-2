@@ -1,12 +1,6 @@
 const router = require("express").Router()
 
-router.get('/', async (req, res) => {
-        try{
-            res.render('homepage')
-        } catch (err){
-            console.log(err);
-            return res.status(500).json({msg:'some error', err:err})
-        }
-  });
+const frontEndRoutes = require('./frontEndRoutes')
+router.use(frontEndRoutes)
 
-  module.exports = router
+module.exports = router
