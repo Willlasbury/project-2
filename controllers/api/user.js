@@ -10,13 +10,16 @@ router.get("/", async (req, res) => {
     return res.json(data);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ msg: "some error", err: err });
+    return res.status(500).json({ msg: "error occurred", err: err });
   }
 });
 
 // create a new user when signing up
 router.post("/", async (req, res) => {
   try {
+    if(!req.session.userId){
+        return res.status(403).json({msg:"login first please!"})
+    } 
     const newUser = {
       name: req.body.name,
       email: req.body.email,
@@ -31,7 +34,7 @@ router.post("/", async (req, res) => {
     return res.status(200).json(dbResponse);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ msg: "some error", err: err });
+    return res.status(500).json({ msg: "error occurred", err: err });
   }
 });
 

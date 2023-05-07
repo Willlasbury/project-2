@@ -9,7 +9,8 @@ class User extends Model {
 }
 
 User.init({
-    name: {
+    // add properites here, ex:
+    username: {
         type: DataTypes.STRING,
         unique:true,
         allowNull: false
@@ -19,9 +20,6 @@ User.init({
         type: DataTypes.STRING,
         allowNull:false,
         unique: true,
-        validate: {
-            isEmail: true
-        }
     },
     password: {
         type: DataTypes.STRING,
@@ -29,6 +27,11 @@ User.init({
         validate: {
             len:[8]
         }
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull:false,
+        type: TEXT
     }
 
 },{
