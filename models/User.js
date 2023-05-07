@@ -5,10 +5,10 @@ class User extends Model {}
 
 User.init({
     // add properites here, ex:
-    name: {
+    username: {
         type: DataTypes.STRING,
         allowNull:false,
-        unique: true
+        unique: true,
     },
     password: {
         type: DataTypes.STRING,
@@ -16,6 +16,11 @@ User.init({
         validate: {
             len:[8]
         }
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull:false,
+        type: TEXT
     }
 
 },{

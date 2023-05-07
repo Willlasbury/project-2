@@ -10,15 +10,15 @@ router.get("/", async (req, res) => {
     return res.json(data)
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ msg: "some error", err: err });
+    return res.status(500).json({ msg: "error occurred", err: err });
   }
 });
 
 router.post("/", async (req, res) => {
   try {
-    // if(!req.session.userId){
-    //     return res.status(403).json({msg:"login first you knucklehead!"})
-    // } 
+    if(!req.session.userId){
+        return res.status(403).json({msg:"login first please!"})
+    } 
     const newUser = {
         name: req.body.name,
         password: req.body.password
@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
 
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ msg: "some error", err: err });
+    return res.status(500).json({ msg: "error occurred", err: err });
   }
 });
 
