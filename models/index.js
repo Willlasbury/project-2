@@ -1,5 +1,5 @@
-const User = require('./User')
-
+const User = require("./User");
+const Task = require("./task");
 
 // Post.belongsTo(User, {
 //     onDelete: 'CASCADE'
@@ -11,6 +11,4 @@ const User = require('./User')
 // })
 // Post.hasMany(Comment)
 
-
-
-module.exports = {User}
+module.exports = { User, Task };
