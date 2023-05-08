@@ -16,7 +16,7 @@ Project.init(
         type: DataTypes.STRING,
         allowNull: false,
       },
-     due_date: {
+      due_date: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
