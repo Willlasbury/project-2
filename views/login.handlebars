@@ -1,17 +1,51 @@
-<h3>Login</h3>
-<form action="" id="login-form">
-  <input type="text" placeholder="Email" id="login-email" />
-  <input type="text" placeholder="Password" id="login-password" />
-  <button>Login</button>
-</form>
+<section class="m-3">
 
-<h3>Sign Up</h3>
-<form action="" id="signup-form">
+  <h3 class="text-blue-500 font-bold text-xl">Login</h3>
+  <form class="flex flex-col" action="" id="login-form">
+    <input
+      class="border-solid border-2 border-blue-950 mt-2 pr-8"
+      type="text"
+      placeholder="Email"
+      id="login-email"
+    />
+    <input
+      class="border-solid border-2 border-blue-950 my-2"
+      type="text"
+      placeholder="Password"
+      id="login-password"
+    />
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-20"
+    >Login</button>
+  </form>
+  <a class="text-xs" href="/signup">Sign up here if you don't already have an account</a>
+</section>
 
-  <input type="text" placeholder="Name" id="user-name" />
-  <input type="text" placeholder="Email" id="user-email" />
-  <input type="text" placeholder="Password" id="user-password" />
-  <button>Signup</button>
-</form>
+{{! <section class="m-3">
+
+  <h3>Sign Up</h3>
+  <form action="" id="signup-form">
+
+    <input
+      class="border-solid border-2 border-blue-950"
+      type="text"
+      placeholder="Name"
+      id="user-name"
+    />
+    <input
+      class="border-solid border-2 border-blue-950"
+      type="text"
+      placeholder="Email"
+      id="user-email"
+    />
+    <input
+      class="border-solid border-2 border-blue-950"
+      type="text"
+      placeholder="Password"
+      id="user-password"
+    />
+    <button>Signup</button>
+  </form>
+</section> }}
 
 <script src="/js/loginSignUp.js"></script>
