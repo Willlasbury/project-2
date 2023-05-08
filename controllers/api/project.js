@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const {Project, Task } = require('../../models');
-// The `/api/products` endpoint
 
 // get all projects
   router.get('/', async (req, res) => {
@@ -10,7 +9,11 @@ const {Project, Task } = require('../../models');
     const projects = await Project.findAll( {
     include: [{ model: Task}],
     });
+    if(projects.length <1){
+      return res.status(404).json({ message: 'There are no projects in your database' });
+    }else{
     res.json(projects);
+    }
     }catch (err){
     res.status(500).json(err);
     }
