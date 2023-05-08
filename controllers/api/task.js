@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { response } = require("express");
 const { Task, User } = require("../../models");
 
 // CREATE new task
@@ -17,25 +18,25 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:name", (req, res) => {
-  Task.findAll({
-    where: {
-      name: req.params.name,
-    },
-  })
-    .then((tasks) => {
-      if (tasks.length === 0) {
-        return res
-          .status(404)
-          .json({ msg: "no tasks with this name in database!" });
-      }
-      res.json(tasks);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ msg: "error occurred", err });
-    });
-});
+// router.get("/:name", (req, res) => {
+//   Task.findAll({
+//     where: {
+//       name: req.params.name,
+//     },
+//   })
+//     .then((tasks) => {
+//       if (tasks.length === 0) {
+//         return res
+//           .status(404)
+//           .json({ msg: "no tasks with this name in database!" });
+//       }
+//       res.json(tasks);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json({ msg: "error occurred", err });
+//     });
+// });
 
 router.get("/:id", (req, res) => {
   Task.findByPk(req.params.id)
@@ -46,6 +47,22 @@ router.get("/:id", (req, res) => {
           .json({ msg: "no task with that id in database!" });
       }
       res.json(task);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ msg: "error occurred", err });
+    });
+});
+
+router.post("/", (req, res) => {
+  Task.create({
+    name: req.body.name,
+    due_date: req.body.due_date,
+    description: req.body.description,
+    status: req.body.status,
+  })
+    .then((newTask) => {
+      res.json(newTask);
     })
     .catch((err) => {
       console.log(err);
@@ -87,18 +104,12 @@ router.delete("/:id", (req, res) => {
       id: req.params.id,
     },
   })
-    .then((delTask) => {
-      if (!delTask) {
-        return res
-          .status(404)
-          .json({ msg: "no task with this id in database!" });
-      }
-      res.json(delTask);
+    .then((deletedTask) => {
+      res.json(deletedTask);
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ msg: "error occurred", err });
-    });
+    .catch((err) => res.json(err));
 });
+
+//GET all by project id
 
 module.exports = router;
