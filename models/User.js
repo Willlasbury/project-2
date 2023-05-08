@@ -20,7 +20,8 @@ User.init({
         type: DataTypes.STRING,
         allowNull:false,
         validate: {
-            len:[8]
+            len:[8],
+            isAlphanumeric: true
         }
     },
     email: {
@@ -33,12 +34,12 @@ User.init({
 
 },{
     sequelize,
-    // hooks:{
-    //     beforeCreate: zooObj=>{
-    //         zooObj.password = bcrypt.hashSync(zooObj.password,3);
-    //         return zooObj;
-    //     }
-    // }
+    hooks:{
+        beforeCreate: userObj=>{
+            userObj.password = bcrypt.hashSync(userObj.password,3);
+            return userObj;
+        }
+    }
 });
 
 module.exports=User
