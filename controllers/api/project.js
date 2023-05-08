@@ -20,6 +20,7 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 // get one project
 router.get("/:id", async (req, res) => {
   // find a single product by its `id`
