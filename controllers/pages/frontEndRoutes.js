@@ -24,6 +24,7 @@ router.get("/login",(req,res)=>{
         logged_in:req.session.logged_in
     })
   })
+
   router.get("/sign_up", async (req, res) => {
     try {
       res.render("sign_up", {
@@ -34,6 +35,7 @@ router.get("/login",(req,res)=>{
       return res.status(500).json({ msg: "some error", err: err });
     }
   });
+
   router.get("/create_projects", async (req, res) => {
     try {
       res.render("create_projects", {
@@ -44,6 +46,7 @@ router.get("/login",(req,res)=>{
       return res.status(500).json({ msg: "some error", err: err });
     }
   });
+
   router.get("/create_tasks", async (req, res) => {
     try {
       res.render("create_tasks", {
@@ -54,6 +57,7 @@ router.get("/login",(req,res)=>{
       return res.status(500).json({ msg: "some error", err: err });
     }
   });
+
   router.get("/individual_project", async (req, res) => {
     try {
       res.render("individual_project", {
@@ -64,6 +68,7 @@ router.get("/login",(req,res)=>{
       return res.status(500).json({ msg: "some error", err: err });
     }
   });
+  
   router.get("/project_overview", async (req, res) => {
     try {
       res.render("project_overview", {
