@@ -2,14 +2,21 @@ const User = require("./User");
 const Task = require("./task");
 const Project = require('./project')
 
-Post.belongsTo(User, {
-    onDelete: 'CASCADE'
+Project.belongsToMany(User, {
+    through: 'ProjectUsers'
 })
-User.hasMany(Post)
+User.belongsToMany(Project, {
+    through: 'ProjectUsers'
+})
 
-Comment.belongsTo(Post, {
+Task.belongsTo(Project, {
     onDelete: 'CASCADE'
 })
-Post.hasMany(Comment)
+Project.hasMany(Task)
+
+Task.belongsTo(User)
+
+User.hasMany(Task)
+
 
 module.exports = { User, Task, Project };
