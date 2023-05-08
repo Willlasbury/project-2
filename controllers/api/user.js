@@ -17,15 +17,11 @@ router.get("/", async (req, res) => {
 // create a new user when signing up
 router.post("/", async (req, res) => {
   try {
-    if(!req.session.userId){
-        return res.status(403).json({msg:"login first please!"})
-    } 
     const newUser = {
-      name: req.body.name,
+      userName: req.body.userName,
       email: req.body.email,
       password: req.body.password,
     };
-
     const dbResponse = await User.create(newUser);
 
     req.session.user_id = dbResponse.dataValues.id;
