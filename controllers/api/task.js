@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { response } = require("express");
-const { Task, User } = require("../../models");
+const { Task, User, Project } = require("../../models");
 
 // CREATE new task
 router.get("/", async (req, res) => {
@@ -77,6 +77,8 @@ router.put("/:id", (req, res) => {
       due_date: req.body.due_date,
       description: req.body.description,
       status: req.body.status,
+      ProjectId: req.body.ProjectId,
+      UserId: req.body.UserId,
     },
     {
       where: {
@@ -110,6 +112,39 @@ router.delete("/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-//GET all by project id
+router.get("/project/:id", async (req, res) => {
+  try {
+    const tasks = await Project.findOne({
+      include: [Task],
+      Where: {
+        id: req.params.id,
+      },
+    });
+    if (tasks.length === 0) {
+      return res.status(404).json({ msg: "no tasks in database!" });
+    }
+    res.json(tasks);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "error occurred", err });
+  }
+});
+router.get("/user/:id", async (req, res) => {
+  try {
+    const tasks = await User.findOne({
+      include: [Task],
+      Where: {
+        id: req.params.id,
+      },
+    });
+    if (tasks.length === 0) {
+      return res.status(404).json({ msg: "no tasks in database!" });
+    }
+    res.json(tasks);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "error occurred", err });
+  }
+});
 
 module.exports = router;
