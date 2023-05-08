@@ -24,5 +24,15 @@ router.get("/login",(req,res)=>{
         logged_in:req.session.logged_in
     })
   })
+  router.get("/sign_up", async (req, res) => {
+    try {
+      res.render("sign_up", {
+        sign_up: req.session.sign_up
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ msg: "some error", err: err });
+    }
+  });
 
   module.exports = router
