@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Project, Task } = require("../../models");
+const { Project, Task, User } = require("../../models");
 
 // get all projects
 router.get("/", async (req, res) => {
@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const projects = await Project.findAll({
-      include: [{ model: Task }],
+      include: [User, Task],
     });
     if (projects.length < 1) {
       return res
@@ -20,6 +20,7 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 // get one project
 router.get("/:id", async (req, res) => {
   // find a single product by its `id`
@@ -39,19 +40,21 @@ router.get("/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 // create new project
 router.post("/", async (req, res) => {
   try {
     const dbResponse = await Project.create(req.body);
-    await dbResponse.addProjects(req.body.userId);
-    console.log(dbResponse[0]);
+    
+    await dbResponse.addUser(req.body.userId);
+    
     res.json(dbResponse);
   } catch (err) {
     res.status(500).json({ err: err });
   }
 });
 
-// update project
+// update project name
 router.put("/:id", (req, res) => {
   Project.update(
     {
@@ -71,6 +74,7 @@ router.put("/:id", (req, res) => {
       res.json(err);
     });
 });
+
 // delete a product by its `id` value
 router.delete("/:id", (req, res) => {
   Project.destroy({
