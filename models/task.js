@@ -17,7 +17,7 @@ Task.init(
       type: DataTypes.TEXT,
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

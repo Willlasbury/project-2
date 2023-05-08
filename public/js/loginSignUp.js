@@ -32,12 +32,12 @@ loginForm.addEventListener("submit", async (event) => {
 signUpForm.addEventListener("submit", async (event) => {
   try {
     event.preventDefault();
-
     const newUser = {
-      name: document.querySelector("#user-name").value,
+      userName: document.querySelector("#user-name").value,
       email: document.querySelector("#user-email").value,
       password: document.querySelector("#user-password").value,
     };
+
 
     const response = await fetch("/api/users", {
       method: "POST",
@@ -46,7 +46,7 @@ signUpForm.addEventListener("submit", async (event) => {
       },
       body: JSON.stringify(newUser),
     });
-
+    console.log("response:", response)
     if (response.ok) {
       location.href = "/";
     } else {

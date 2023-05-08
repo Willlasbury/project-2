@@ -10,17 +10,12 @@ class User extends Model {
 
 User.init({
     // add properites here, ex:
-    username: {
+    userName: {
         type: DataTypes.STRING,
         unique:true,
         allowNull: false
     },
     
-    email: {
-        type: DataTypes.STRING,
-        allowNull:false,
-        unique: true,
-    },
     password: {
         type: DataTypes.STRING,
         allowNull:false,
@@ -31,17 +26,19 @@ User.init({
     email: {
         type: DataTypes.STRING,
         allowNull:false,
-        type: TEXT
+        validate: {
+            isEmail: true
+        }
     }
 
 },{
     sequelize,
-    hooks:{
-        beforeCreate: zooObj=>{
-            zooObj.password = bcrypt.hashSync(zooObj.password,3);
-            return zooObj;
-        }
-    }
+    // hooks:{
+    //     beforeCreate: zooObj=>{
+    //         zooObj.password = bcrypt.hashSync(zooObj.password,3);
+    //         return zooObj;
+    //     }
+    // }
 });
 
 module.exports=User
