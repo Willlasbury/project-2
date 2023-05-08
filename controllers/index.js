@@ -15,4 +15,7 @@ router.use("/api", apiRoutes);
 const pageRoutes = require("./pages");
 router.use("/", pageRoutes);
 
+const taskRoutes = require("./api/task");
+router.use("/api/task", taskRoutes);
+
 module.exports = router;
