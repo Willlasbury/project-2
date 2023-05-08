@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { response } = require("express");
-const { Task, User } = require("../../models");
+const { Task, User, Project } = require("../../models");
 
 // CREATE new task
 router.get("/", async (req, res) => {
@@ -108,6 +108,24 @@ router.delete("/:id", (req, res) => {
       res.json(deletedTask);
     })
     .catch((err) => res.json(err));
+});
+
+router.get("project/:id", async (req, res) => {
+  try {
+    const tasks = await Project.findAll({
+      Include: [Task],
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (tasks.length === 0) {
+      return res.status(404).json({ msg: "no tasks in database!" });
+    }
+    res.json(tasks);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "error occurred", err });
+  }
 });
 
 //GET all by project id
