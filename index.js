@@ -20,8 +20,6 @@ const sess = {
   }),
 };
 
-app.use(express.static("public"))
-
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
@@ -37,6 +35,6 @@ const Task = require("./models/task");
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
-    console.log(`listenin to port ${PORT}!`);
+    console.log(`listening to port ${PORT}`);
   });
 });
