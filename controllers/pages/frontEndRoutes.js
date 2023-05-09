@@ -16,7 +16,10 @@ const route1 = router.get("/", async (req, res) => {
         project.get({ plain: true })
       );
       console.log("yourProjects:", yourProjects);
-      res.render("homepage", {yourProjects: yourProjects});
+      res.render("homepage", {
+        yourProjects: yourProjects,
+        logged_in: req.session.logged_in,
+      });
     } else {
       someObj = {};
       res.render("login");
