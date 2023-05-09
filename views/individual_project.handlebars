@@ -1,10 +1,15 @@
-<header><h3>{{title}}</h3></header>
-<header class = "flex flex-row flex grow space x-4">
-<h3 class = "flex flex-row flex-grow border r-2 justify-center relative left-32"> Tasks</h3>
-<h3 class = "flex flex-row flex-grow border r-2 justify-center"> Icon</h3>
-<h3 class = "flex flex-row flex-grow border r-2 justify-center"> Due Date</h3>
-</header>
- {{!-- {{#each Project}}
-    {{> tasks}}
-  {{/each}} --}}
-  {{>tasks}}
+<section class="flex flex-col grow items-center">
+<h3 class="text-3xl mb-5">project title</h3>
+<button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40 mb-5"
+    >Create New Task</button>
+<form class="flex flex-row grow m-2">
+<input class="flex-none"type="checkbox" id="task-done" name="task-done" unchecked>
+
+<textarea placeholder="Tasks"name="task-name" class = "flex-auto h-8 border-solid border-2 border-blue-950 m-1 "></textarea>
+
+<input placeholder="Icon"class = "flex-none h-8 border-solid border-2 border-blue-950 m-1"></input>
+
+<input placeholder="Due date"class = "flex-none h-8 border-solid border-2 border-blue-950 m-1"></input>
+</form>
+</section>
