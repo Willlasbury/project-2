@@ -20,6 +20,8 @@ const sess = {
   }),
 };
 
+app.use(express.static("public"))
+
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
