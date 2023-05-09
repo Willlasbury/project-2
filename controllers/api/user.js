@@ -3,7 +3,7 @@ const { User, Project } = require("../../models");
 
 router.get("/", async (req, res) => {
   try {
-    const data = await User.findAll({include:[Project]});
+    const data = await User.findAll({ include: [Project] });
     if (data.length === 0) {
       return res.status(404).json({ msg: "no Users in database!" });
     }
@@ -23,9 +23,10 @@ router.post("/", async (req, res) => {
       password: req.body.password,
     };
     const dbResponse = await User.create(newUser);
-
-    await dbResponse.addProject(req.body.projectId)
-
+    
+    if (req.body.projectId) {
+      await dbResponse.addProject(req.body.projectId);
+    }
     req.session.user_id = dbResponse.dataValues.id;
     req.session.logged_in = true;
 
