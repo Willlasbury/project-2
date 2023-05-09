@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Project, User } = require("../../models");
+const { Project, User, Task } = require("../../models");
 const dayJs = require('dayjs')
 
 // send homepage as initial action
@@ -79,9 +79,18 @@ router.get("/create_tasks", async (req, res) => {
   }
 });
 
-router.get("/individual_project", async (req, res) => {
+router.get("/individual_projects/:id", async (req, res) => {
   try {
-    res.render("individual_project", dataObj);
+      const dbResponse = await Task.findAll({where: {ProjectId: req.params.id}})
+      console.log("dbResponse:", dbResponse)
+      console.log('===\n\n\ntest\n\n\n===')
+      const project = dbResponse.map(task => task.get({plain:true}))
+      // const project = await dbResponse.get({ plain: true })
+      console.log("project:", project)
+      
+      
+
+    res.render("individual_project", {project: project});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
