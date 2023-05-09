@@ -1,5 +1,4 @@
-const dueDate = document.querySelector('#due-date').textContent
-
+const dueDate = document.querySelector('#time-left').textContent
 
 
 
