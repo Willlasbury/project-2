@@ -1,5 +1,5 @@
 const loginForm = document.querySelector("#login-form");
-const signUpForm = document.querySelector("#signup-form");
+
 
 loginForm.addEventListener("submit", async (event) => {
   try {
