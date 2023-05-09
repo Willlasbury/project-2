@@ -25,9 +25,9 @@ router.get("/login",(req,res)=>{
     })
   })
 
-  router.get("/sign_up", async (req, res) => {
+  router.get("/signup", async (req, res) => {
     try {
-      res.render("sign_up", {
+      res.render("signup", {
         sign_up: req.session.sign_up
       });
     } catch (err) {
