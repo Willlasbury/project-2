@@ -1,4 +1,5 @@
-const myMiddleware = require('../../utils/helpers');
+// const myMiddleware = require('../../utils/helpers');
+
 const logoutBtn = document.querySelector("#logout");
 
 logoutBtn.addEventListener("click", async (event) => {
@@ -8,7 +9,7 @@ logoutBtn.addEventListener("click", async (event) => {
     const response = await fetch("/api/users/logout", {
       method: "POST",
     });
-    console.log("response:", myMiddleware,(req, res))
+    // console.log("response:", myMiddleware,(req, res))
     if (response.ok) {
       location.reload();
     } else {
