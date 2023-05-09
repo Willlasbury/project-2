@@ -1,18 +1,18 @@
 {{!-- Will have the title of the project they just added here --}}
-<header><h3>{{title}}</h3></header>
-<body class = "flex flex-col max-w">
-<div class="flex flex-col max-w">
-<div>
-<input class = "flex flex-col max-w h-8 border-solid border-2 border-blue-950 my-2"> Tasks</input>
-</div>
-<div>
-<input class = "flex flex-col max-w h-8 border-solid border-2 border-blue-950 my-2"> Assign task to: </input>
-</div>
-<div>
-<input class = "flex flex-col max-w h-8 border-solid border-2 border-blue-950 my-2"> Due Date</input>
-</div>
+
+<section class="flex flex-col grow">
+<h3 class="text-3xl">project title</h3>
+<form class="flex flex-col my-4">
+<label for="task-name">Task name</label>
+<input name="task-name" class = "max-w h-8 border-solid border-2 border-blue-950 my-2"></input>
+<label for="task-name">Due date</label>
+<input class = "max-w h-8 border-solid border-2 border-blue-950 my-2"></input>
+<label for="task-name">Description</label>
+<textarea class = "max-w h-30 border-solid border-2 border-blue-950 my-2"></textarea>
+
+
 <button
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40"
     >Create Task</button>
-</div>
-</body>
+</form>
+</section>
