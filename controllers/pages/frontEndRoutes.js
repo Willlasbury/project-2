@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Project, User } = require("../../models");
+const dayJs = require('dayjs')
 
 // send homepage as initial action
 const route1 = router.get("/", async (req, res) => {
@@ -12,12 +13,19 @@ const route1 = router.get("/", async (req, res) => {
         include: [{ model: User, where: { id: req.session.user_id } }],
       });
 
-      const yourProjects = await dbResponse.map((project) =>
-        project.get({ plain: true })
+      const filterData = await dbResponse.map((project) =>
+        project.get({ plain: true }),
       );
-      console.log("yourProjects:", yourProjects);
+
+      await filterData.map(project => {
+        project.due_date = dayJs(project.due_date).format('DD MMMM YYYY')
+        console.log("project:", project.due_date)
+      })
+      
+      
+      
       res.render("homepage", {
-        yourProjects: yourProjects,
+        yourProjects: filterData,
         logged_in: req.session.logged_in,
       });
     } else {
