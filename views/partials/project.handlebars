@@ -1,0 +1,15 @@
+<section id="project">
+  <h3>Project Name {{projectName}}</h3>
+  <section>
+    <ul>
+   {{!-- {{#each gallery.paintings as |painting|}}
+    {{> painting-details}}
+    {{/each}} --}}
+
+  {{#each project}}
+    {{>tasks}}
+    {{/each}}
+    </ul>
+  </section>
+
+</section>
