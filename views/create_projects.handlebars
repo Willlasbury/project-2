@@ -1,17 +1,16 @@
 {{!-- Once they click Create Project they are directed to create_tasks page --}}
-<header><h3>{{title}}</h3></header>
-<body class = "flex flex-col max-w">
-<div class="flex flex-col max-w-sm">
-<div>
-<input class = " max-w h-8 border-solid border-2 border-blue-950 my-2"> Project Name</input>
-</div>
-<div>
-<input class = " max-w h-8 border-solid border-2 border-blue-950 my-2"> Project Due Date</input>
-</div>
+<section class="flex flex-col grow">
+<h3 class="text-3xl">New Project</h3>
+<form class="flex flex-col my-4">
+<label for="task-name">Project Title</label>
+<input name="task-name" class = "max-w h-8 border-solid border-2 border-blue-950 my-2"></input>
+<label for="task-name">Due date</label>
+<input class = "max-w h-8 border-solid border-2 border-blue-950 my-2"></input>
+
+
 
 <button
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40"
     >Create Project</button>
-</div>
-<a href="/create_tasks"></a>
-</body>
+</form>
+</section>
