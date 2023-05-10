@@ -2,11 +2,12 @@
 <a
 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-30 align-items center"
 href="/create_projects">Create New Project</a>
+<a href="/project/{{id}}">
 <section class="flex flex-row space-between grow rounded bg-green-400 justify-center">
     <span class="inline-block m-3"><h3 class="text-2xl">{{title}}</h3></span>
     <span class="inline-block m-3"><h3 class="text-2xl">{{due_date}}</h3></span>
     <span class="inline-block m-3"><h3 class="text-2xl" id="time-left">{{time_until_due}}</h3></span>
- 
+ </a>
 </section>
 </form>
 
