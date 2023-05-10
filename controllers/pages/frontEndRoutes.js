@@ -11,24 +11,21 @@ router.get("/", async (req, res) => {
       const userId = req.session.user_id;
 
       const dbResponse = await Project.findAll({
-        include: [{ model: User, where: { id: 1 } }],
+        include: [{ model: User, where: { id: req.session.user_id } }],
       });
 
       const filterData = await dbResponse.map((project) =>
         project.get({ plain: true })
       );
-      // TODO: find current time
-      var now = dayJs();
 
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
         const currentTime = dayJs();
-        // TODO: find differnce between due date and current date
-        const newDate = currentTime.diff(project.due_date);
+        const newDate = currentTime.diff(project.due_date) * -1;
         project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
         project.time_until_due = newDate;
       }
-
+      console.log("filterData:", filterData)
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,

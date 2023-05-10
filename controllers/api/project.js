@@ -4,7 +4,6 @@ const { Project, Task, User } = require("../../models");
 // get all projects
 router.get("/", async (req, res) => {
   // find all projects
-  // be sure to include its associated Category and Tag data
   try {
     const projects = await Project.findAll({
       include: [User, Task],
