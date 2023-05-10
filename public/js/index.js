@@ -1,3 +1,3 @@
-document.querySelector('#test').addEventListener('click', event => {
-    console.log("test")
-})
+// document.querySelector('#test').addEventListener('click', event => {
+//     console.log("test")
+// })

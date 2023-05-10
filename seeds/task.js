@@ -4,12 +4,14 @@ const tasks = [
       due_date: 05 / 10 / 2023,
       description: "finish the routes associated with the tasks model",
       status: 1,
+      ProjectId: 1,
     },
     {
       name: "finish user routes",
       due_date: 05 / 11 / 2023,
       description: "finish the routes associated with the users model",
       status: 2,
+      ProjectId: 1,
     },
     {
       name: "finish project routes",

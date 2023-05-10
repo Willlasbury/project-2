@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
         project.get({ plain: true })
       );
       // TODO: find current time
-      var now = dayJs();c
+      var now = dayJs();
 
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];

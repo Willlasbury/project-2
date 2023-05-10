@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({ message: "Incorrect email or password, please try again" });
     }
-
+    
     const passwordCheck = await userData.checkPassword(req.body.password);
 
     if (!passwordCheck) {
@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
 
     req.session.logged_in = true;
     req.session.user_id = userData.id;
-    return res.json({ user: userData, message: "You are now logged in!" });
+    return res.render('homepage')
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
