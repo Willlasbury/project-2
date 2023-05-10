@@ -60,6 +60,7 @@ router.post("/", (req, res) => {
     due_date: req.body.due_date,
     description: req.body.description,
     status: req.body.status,
+    ProjectId: req.body.ProjectId
   })
     .then((newTask) => {
       res.json(newTask);
