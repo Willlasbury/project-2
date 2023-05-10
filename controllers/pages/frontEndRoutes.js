@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { config } = require("dotenv");
 const { Project, User, Task } = require("../../models");
 const dayJs = require("dayjs");
 const projects = require("../../seeds/project");
@@ -12,7 +11,7 @@ router.get("/", async (req, res) => {
       const userId = req.session.user_id;
 
       const dbResponse = await Project.findAll({
-        include: [{ model: User, where: { id: 1 } }],
+        include: [{ model: User, where: { id: req.session.user_id } }],
       });
 
       const filterData = await dbResponse.map((project) =>
