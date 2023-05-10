@@ -43,12 +43,18 @@ router.get("/:id", async (req, res) => {
 // create new project
 router.post("/", async (req, res) => {
   try {
-    const dbResponse = await Project.create(req.body);
-    
+    const newProject = {
+      title: req.body.title,
+      due_date: req.body.due_date
+    }
+    const dbResponse = await Project.create(newProject);
     await dbResponse.addUser(req.body.userId);
     
-    res.json(dbResponse);
+    const formatData = await dbResponse.get({plain:true})
+    console.log("formatData:", formatData)
+    res.status(200).json(formatData);
   } catch (err) {
+    console.log('===\n\n\ntest\n\n\n===')
     res.status(500).json({ err: err });
   }
 });

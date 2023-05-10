@@ -11,21 +11,47 @@ router.get("/", async (req, res) => {
       const userId = req.session.user_id;
 
       const dbResponse = await Project.findAll({
-        include: [{ model: User, where: { id: req.session.user_id } }],
+        include: [
+          { model: Task },
+          { model: User, where: { id: req.session.user_id } },
+        ],
       });
-
       const filterData = await dbResponse.map((project) =>
         project.get({ plain: true })
       );
 
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
+        const tasks = filterData[i].Tasks;
+
+        // add due date params
         const currentTime = dayJs();
         const newDate = currentTime.diff(project.due_date) * -1;
         project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
         project.time_until_due = newDate;
+
+        // add project status param from average of tasks status
+        let netStatus = 0
+        let numTasks = 0
+        for (let j = 0; j < tasks.length; j++) {
+          const task = tasks[j];
+          netStatus= netStatus + Number(task.status)
+          numTasks++          
+        }
+
+        // TODO: update codes for backgrounds
+        const status = Math.floor(netStatus / numTasks)
+        console.log("status:", status)
+        if (status === 1) {
+          project.status = 'red'
+        } else if (status === 2) {
+          project.status = "yellow";
+        } else if (status === 3) {
+          project.status = "green";
+        }
+        
+
       }
-      console.log("filterData:", filterData);
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,
@@ -64,7 +90,7 @@ router.get("/sign_up", async (req, res) => {
 router.get("/create_projects", async (req, res) => {
   try {
     res.render("create_projects", {
-      create_projects: req.session.create_projects,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.log(err);
@@ -72,9 +98,13 @@ router.get("/create_projects", async (req, res) => {
   }
 });
 
-router.get("/create_tasks", async (req, res) => {
+router.get("/create_tasks/:id", async (req, res) => {
   try {
-    res.render("create_tasks");
+    const dbResponse = await Project.findOne({ where: { id: req.params.id }})
+    const formatData = await dbResponse.get( {plain:true} )
+    console.log("formatData:", formatData)
+    
+    res.render("create_tasks", {project: formatData});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
@@ -107,10 +137,8 @@ router.get("/project/:id", (req, res) => {
     hbsData.due_date = dayJs(hbsData.due_date).format("MMMM DD YYYY");
     hbsData.logged_id = req.session.logged_id;
     const currentTime = dayJs();
-    // TODO: find differnce between due date and current date
     const newDate = currentTime.diff(hbsData.due_date, "days");
     hbsData.time_until_due = newDate;
-    //TODO: get the for loop to run on the task status
     console.log("=====\n\nTEST\n\n\n======");
     const dataobj = hbsData.Tasks;
     for (let i = 0; i < dataobj.length; i++) {
