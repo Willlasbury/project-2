@@ -23,6 +23,14 @@ router.get("/", async (req, res) => {
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
         const tasks = filterData[i].Tasks;
+
+        // add due date params
+        const currentTime = dayJs();
+        const newDate = currentTime.diff(project.due_date) * -1;
+        project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
+        project.time_until_due = newDate;
+
+        // add project status param from average of tasks status
         let netStatus = 0
         let numTasks = 0
         for (let j = 0; j < tasks.length; j++) {
@@ -30,11 +38,19 @@ router.get("/", async (req, res) => {
           netStatus= netStatus + Number(task.status)
           numTasks++          
         }
-        const currentTime = dayJs();
-        const newDate = currentTime.diff(project.due_date) * -1;
-        project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
-        project.time_until_due = newDate;
-        filterData[i].status = Math.floor(netStatus / numTasks)
+
+        // TODO: update codes for backgrounds
+        const status = Math.floor(netStatus / numTasks)
+        console.log("status:", status)
+        if (status === 1) {
+          project.status = 'red'
+        } else if (status === 2) {
+          project.status = "yellow";
+        } else if (status === 3) {
+          project.status = "green";
+        }
+        
+
       }
       
       console.log("filterData:", filterData)
