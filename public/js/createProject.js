@@ -1,21 +1,21 @@
-document.querySelector("form").addEventListener("submit", event=>{
+document.querySelector("form").addEventListener("submit", async event=>{
     event.preventDefault();
     const projectObj = {
         title: document.querySelector("#project").value,
         due_date: document.querySelector("#due-date").value,
     }
-    console.log(projectObj);
-    fetch("/api/projects", {
+    const response = await fetch("/api/projects", {
         method: "POST",
         body: JSON.stringify(projectObj),
         headers: {
             "Content-Type": "application/json"
         }
-    }).then(res =>{
-        if(res.ok){
-            location.href = "/create_tasks"
+    })
+        const projectData = await response.json()
+        const id = projectData.id
+        if(response.ok){
+            location.href = `/create_tasks/${id}`
         } else{
             alert("You have an error")
         }
     })
-})

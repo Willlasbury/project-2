@@ -11,12 +11,14 @@ router.get("/", async (req, res) => {
       const userId = req.session.user_id;
 
       const dbResponse = await Project.findAll({
-        include: [{ model: User, where: { id: req.session.user_id } }],
+        include: [{ model: User,Task, where: { id: req.session.user_id } }],
       });
 
       const filterData = await dbResponse.map((project) =>
         project.get({ plain: true })
       );
+
+      console.log("filterData:", filterData)
 
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
@@ -25,7 +27,6 @@ router.get("/", async (req, res) => {
         project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
         project.time_until_due = newDate;
       }
-      console.log("filterData:", filterData)
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,
@@ -64,7 +65,7 @@ router.get("/sign_up", async (req, res) => {
 router.get("/create_projects", async (req, res) => {
   try {
     res.render("create_projects", {
-      create_projects: req.session.create_projects,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.log(err);
@@ -72,9 +73,13 @@ router.get("/create_projects", async (req, res) => {
   }
 });
 
-router.get("/create_tasks", async (req, res) => {
+router.get("/create_tasks/:id", async (req, res) => {
   try {
-    res.render("create_tasks");
+    const dbResponse = await Project.findOne({where: {id: req.params.id}})
+    const formatData = await dbResponse.get({plain:true})
+    console.log("formatData:", formatData)
+    
+    res.render("create_tasks", {formatData: formatData});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
@@ -107,10 +112,8 @@ router.get("/project/:id", (req, res) => {
     hbsData.due_date = dayJs(hbsData.due_date).format("MMMM DD YYYY");
     hbsData.logged_id = req.session.logged_id;
     const currentTime = dayJs();
-    // TODO: find differnce between due date and current date
     const newDate = currentTime.diff(hbsData.due_date, "days");
     hbsData.time_until_due = newDate;
-    //TODO: get the for loop to run on the task status
     console.log("=====\n\nTEST\n\n\n======");
     const dataobj = hbsData.Tasks;
     for (let i = 0; i < dataobj.length; i++) {
