@@ -104,11 +104,11 @@ router.get("/create_projects", async (req, res) => {
 
 router.get("/create_tasks/:id", async (req, res) => {
   try {
-    const dbResponse = await Project.findOne({ where: { id: req.params.id } });
-    const formatData = await dbResponse.get({ plain: true });
-    console.log("formatData:", formatData);
-
-    res.render("create_tasks", { formatData: formatData });
+    const dbResponse = await Project.findOne({ where: { id: req.params.id }})
+    const formatData = await dbResponse.get( {plain:true} )
+    console.log("formatData:", formatData)
+    
+    res.render("create_tasks", {project: formatData});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
