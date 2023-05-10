@@ -11,22 +11,35 @@ router.get("/", async (req, res) => {
       const userId = req.session.user_id;
 
       const dbResponse = await Project.findAll({
-        include: [{ model: User,Task, where: { id: req.session.user_id } }],
+        include: [
+          { model: Task },
+          { model: User, where: { id: req.session.user_id } },
+        ],
       });
-
       const filterData = await dbResponse.map((project) =>
         project.get({ plain: true })
       );
 
-      console.log("filterData:", filterData)
-
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
+        const tasks = filterData[i].Tasks;
+        let netStatus = 0
+        let numTasks = 0
+        for (let j = 0; j < tasks.length; j++) {
+          const task = tasks[j];
+          netStatus= netStatus + Number(task.status)
+          numTasks++          
+        }
         const currentTime = dayJs();
         const newDate = currentTime.diff(project.due_date) * -1;
         project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
         project.time_until_due = newDate;
+        filterData[i].status = Math.floor(netStatus / numTasks)
       }
+      
+      console.log("filterData:", filterData)
+
+
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,
@@ -75,11 +88,11 @@ router.get("/create_projects", async (req, res) => {
 
 router.get("/create_tasks/:id", async (req, res) => {
   try {
-    const dbResponse = await Project.findOne({where: {id: req.params.id}})
-    const formatData = await dbResponse.get({plain:true})
-    console.log("formatData:", formatData)
-    
-    res.render("create_tasks", {formatData: formatData});
+    const dbResponse = await Project.findOne({ where: { id: req.params.id } });
+    const formatData = await dbResponse.get({ plain: true });
+    console.log("formatData:", formatData);
+
+    res.render("create_tasks", { formatData: formatData });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
