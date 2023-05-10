@@ -9,7 +9,7 @@ const startSeedin = async () => {
   try {
     await sequelize.sync({ force: true });
     const projectData = await Project.bulkCreate(projectSeeds);
-    const userData = await User.bulkCreate(userSeeds);
+    const userData = await User.bulkCreate(userSeeds, {individualHooks:true});
     const taskData = await Task.bulkCreate(taskSeeds);
     
     for (let i = 0; i < userData.length; i++) {
