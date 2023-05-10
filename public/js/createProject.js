@@ -27,6 +27,7 @@ function updateFunction(e) {
     },
     body: JSON.stringify(body),
   });
+  location.reload();
 }
 
 for (let i = 0; i < id.length; i++) {
