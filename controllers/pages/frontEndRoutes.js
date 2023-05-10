@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
         project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
         project.time_until_due = newDate;
       }
-      console.log("filterData:", filterData)
+      console.log("filterData:", filterData);
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,

@@ -15,8 +15,8 @@ router.use("/api", apiRoutes);
 const pageRoutes = require("./pages");
 router.use("/", pageRoutes);
 
-const taskRoutes = require("./api/task");
-router.use("/api/task", taskRoutes);
+// const taskRoutes = require("./api/task");
+// router.use("/api/task", taskRoutes);
 
 // const projectRoutes = require("../controllers/api/project");
 // router.use("/project", projectRoutes);
