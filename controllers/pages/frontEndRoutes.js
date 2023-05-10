@@ -52,10 +52,6 @@ router.get("/", async (req, res) => {
         
 
       }
-      
-      console.log("filterData:", filterData)
-
-
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,
