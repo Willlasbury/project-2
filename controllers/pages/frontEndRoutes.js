@@ -1,9 +1,10 @@
 const router = require("express").Router();
+const { config } = require("dotenv");
 const { Project, User, Task } = require("../../models");
 const dayJs = require('dayjs')
 
 // send homepage as initial action
-const route1 = router.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     // check if user has an id in session
     if (req.session.user_id) {
@@ -39,7 +40,7 @@ const route1 = router.get("/", async (req, res) => {
 });
 
 // control what happens when user clicks on login
-const route2 = router.get("/login", (req, res) => {
+router.get("/login", (req, res) => {
   // prevent user from accessing login page if they are already logged in
   if (req.session.logged_in) {
     return res.redirect("/");
@@ -50,7 +51,8 @@ const route2 = router.get("/login", (req, res) => {
   });
 });
 
-router.get("/signup", async (req, res) => {
+
+router.get("/sign_up", async (req, res) => {
   try {
     res.render("signup");
   } catch (err) {
