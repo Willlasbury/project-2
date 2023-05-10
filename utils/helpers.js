@@ -1,4 +1,4 @@
-
+// is this being used?
     function checkUser (req, res, next){
         if(req.sessions.loggedIn === true){
            User.findbyId(req.session.user_id, function (user){
