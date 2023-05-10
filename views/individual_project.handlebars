@@ -1,2 +1,16 @@
-<h3>{{title}}</h3>
-<p>{{due_date}}</p>
+<Section id="project" class="flex flex-col mt-2 pr-8">
+  <h2 class="font-bold text-3xl">{{title}}</h2>
+  <p class="font-bold">Project Due Date: {{due_date}}</p>
+  <p class="font-bold">Days Until project Due: {{time_until_due}}</p>
+
+  {{#each Tasks}}
+    <div
+      class="task-card border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500"
+    >
+      <h3 class="font-bold">{{name}} </h3>
+      <p>{{description}}</p>
+      {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
+    </div>
+  {{/each}}
+
+</Section>

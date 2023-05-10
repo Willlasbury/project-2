@@ -17,18 +17,15 @@ router.get("/", async (req, res) => {
       const filterData = await dbResponse.map((project) =>
         project.get({ plain: true })
       );
-      // TODO: find current time
-      var now = dayJs();
 
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
         const currentTime = dayJs();
-        // TODO: find differnce between due date and current date
-        const newDate = currentTime.diff(project.due_date);
+        const newDate = currentTime.diff(project.due_date) * -1;
         project.due_date = dayJs(project.due_date).format("DD MMMM YYYY");
         project.time_until_due = newDate;
       }
-
+      console.log("filterData:", filterData)
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,
@@ -84,22 +81,54 @@ router.get("/create_tasks", async (req, res) => {
   }
 });
 
-router.get("/individual_projects/:id", async (req, res) => {
-  try {
-    const dbResponse = await Task.findAll({
-      where: { ProjectId: req.params.id },
-    });
-    console.log("dbResponse:", dbResponse);
-    console.log("===\n\n\ntest\n\n\n===");
-    const project = dbResponse.map((task) => task.get({ plain: true }));
-    // const project = await dbResponse.get({ plain: true })
-    console.log("project:", project);
+// router.get("/individual_projects/:id", async (req, res) => {
+//   try {
+//     const dbResponse = await Task.findByPk({
+//       where: { ProjectId: req.params.id },
+//     });
+//     console.log("dbResponse:", dbResponse);
+//     console.log("===\n\n\ntest\n\n\n===");
+//     const project = dbResponse.map((task) => task.get({ plain: true }));
+//     // const project = await dbResponse.get({ plain: true })
+//     console.log("project:", project);
 
-    res.render("individual_project", { project: project });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ msg: "some error", err: err });
-  }
+//     res.render("individual_project", { project: project });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).json({ msg: "some error", err: err });
+//   }
+// });
+
+router.get("/project/:id", (req, res) => {
+  Project.findByPk(req.params.id, {
+    include: [Task],
+  }).then((projData) => {
+    const hbsData = projData.get({ plain: true });
+    hbsData.due_date = dayJs(hbsData.due_date).format("MMMM DD YYYY");
+    hbsData.logged_id = req.session.logged_id;
+    const currentTime = dayJs();
+    // TODO: find differnce between due date and current date
+    const newDate = currentTime.diff(hbsData.due_date, "days");
+    hbsData.time_until_due = newDate;
+    //TODO: get the for loop to run on the task status
+    console.log("=====\n\nTEST\n\n\n======");
+    const dataobj = hbsData.Tasks;
+    for (let i = 0; i < dataobj.length; i++) {
+      const formattedData = dataobj[i].status;
+      console.log("projData:", formattedData);
+      if (formattedData === 1) {
+        dataobj[i].status = "red";
+        console.log("test:");
+      } else if (formattedData === 2) {
+        dataobj[i].status = "yellow";
+      } else if (formattedData === 3) {
+        dataobj[i].status = "green";
+      }
+    }
+
+    console.log(hbsData);
+    res.render("individual_project", hbsData);
+  });
 });
 
 router.get("/project_overview", async (req, res) => {
