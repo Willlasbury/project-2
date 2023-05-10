@@ -49,6 +49,7 @@ router.post("/", async (req, res) => {
     }
     const dbResponse = await Project.create(newProject);
     await dbResponse.addUser(req.body.userId);
+    
     const formatData = await dbResponse.get({plain:true})
     console.log("formatData:", formatData)
     res.status(200).json(formatData);
