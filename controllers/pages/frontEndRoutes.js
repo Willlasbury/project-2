@@ -79,7 +79,7 @@ router.get("/create_tasks/:id", async (req, res) => {
     const formatData = await dbResponse.get({plain:true})
     console.log("formatData:", formatData)
     
-    res.render("create_tasks", {formatData: formatData});
+    res.render("create_tasks", {project: formatData});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
