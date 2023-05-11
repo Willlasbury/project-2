@@ -7,19 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body class="bg-gray-200">
+  <body class="bg-[#f7f7f7]">
     <header>
-      <h1 class="text-3xl font-extrabold m-5 text-indigo-700">blah Blog</h1>
+      <h1 class="text-3xl font-extrabold m-5 text-[#0057e7]">blah Blog</h1>
     </header>
-    <nav class="mx-5 font-extrabold bg-slate-500">
+    <nav class="mx-5 font-extrabold bg-[#7f8e9e]">
       <ul class="">
-        <a class="mr-2 hover:text-gray-700" href="/">Home</a>
-        <a class="mr-2 hover:text-gray-700" href="/">Dashboard</a>
+        <a class="mr-2 hover:text-[#0057e7]" href="/">Home</a>
+        <a class="mr-2 hover:text-[#0057e7]" href="/">Dashboard</a>
         {{#if logged_in}}
           <button id="logout">Logout</button>
           <script src="/js/logout.js"></script>
         {{else}}
-          <a class="mr-2 hover:text-gray-700" href="login">Login</a>
+          <a class="mr-2 hover:text-[#0057e7]" href="login">Login</a>
         {{/if}}
       </ul>
     </nav>
