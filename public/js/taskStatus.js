@@ -35,4 +35,3 @@ for (let i = 0; i < id.length; i++) {
   console.log("element:", element);
   element.addEventListener("change", updateFunction);
 }
-
