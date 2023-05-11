@@ -6,21 +6,22 @@
   {{#each project.Tasks}}
   <a href="/task/{{id}}">
     <div
-      class="task-card border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500"
+      class="task-card hover:bg-blue-700 border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500"
     >
-      <button id="taskCompleted">Completed</button>
+      <button id="taskCompleted" class="ç">Completed</button>
       <h3 class="font-bold">{{name}} </h3>
       <p>{{description}}</p>
+      </a>
       <select name="status" class="status" id="{{id}}">
         <option value=" "></option>
         <option value="1">Off-track</option>
         <option value="2">Need-Assistance</option>
         <option value="3">On-Track</option>
       </select>
-      </a>
+      
 
       {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
     </div>
   {{/each}}
-  <script src="/js/createProject.js"></script>
+  <script src="/js/project.js"></script>
 </Section>
