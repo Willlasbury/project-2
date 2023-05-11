@@ -111,7 +111,9 @@ router.get("/create_tasks/:id",  async (req, res) => {
     const formatData = await dbResponse.get( {plain:true} )
     console.log("formatData:", formatData)
     
-    res.render("create_tasks", {project: formatData});
+    res.render("create_tasks",
+    {logged_in: req.session.logged_in,
+    project: formatData});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
@@ -157,7 +159,7 @@ router.get("/project/:id", (req, res) => {
 router.get("/project_overview",  async (req, res) => {
   if(req.session.logged_in){
   try {
-    res.render("project_overview");
+    res.render("project_overview", {logged_in: req.session.logged_in,});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
