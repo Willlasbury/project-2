@@ -50,8 +50,8 @@ router.get("/", async (req, res) => {
           project.status = "green";
         }
       }
-      res.render("homepage", {
-        yourProjects: filterData,
+      res.render("homepage", {ç
+        yourProjects: yourProjects,
         logged_in: req.session.logged_in,
       });
     } else {
