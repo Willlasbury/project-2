@@ -1,7 +1,21 @@
 const router = require("express").Router();
 const { Project, User, Task } = require("../../models");
+const express = require('express');
 const dayJs = require("dayjs");
 const projects = require("../../seeds/project");
+const passport = require("passport");
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+function checkAuthentication(req,res,next){
+  if(req.isAuthenticated()){
+      //req.isAuthenticated() will return true if user is logged in
+      next();
+  } else{
+      res.redirect("/login");
+  }
+}
 
 // send homepage as initial action
 router.get("/", async (req, res) => {
@@ -31,24 +45,26 @@ router.get("/", async (req, res) => {
         project.time_until_due = newDate;
 
         // add project status param from average of tasks status
-        let netStatus = 0;
-        let numTasks = 0;
+        let netStatus = 0
+        let numTasks = 0
         for (let j = 0; j < tasks.length; j++) {
           const task = tasks[j];
-          netStatus = netStatus + Number(task.status);
-          numTasks++;
+          netStatus= netStatus + Number(task.status)
+          numTasks++          
         }
 
         // TODO: update codes for backgrounds
-        const status = Math.floor(netStatus / numTasks);
-        console.log("status:", status);
+        const status = Math.floor(netStatus / numTasks)
+        console.log("status:", status)
         if (status === 1) {
-          project.status = "red";
+          project.status = 'red'
         } else if (status === 2) {
           project.status = "yellow";
         } else if (status === 3) {
           project.status = "green";
         }
+        
+
       }
       res.render("homepage", {
         yourProjects: filterData,
@@ -85,7 +101,7 @@ router.get("/sign_up", async (req, res) => {
   }
 });
 
-router.get("/create_projects", async (req, res) => {
+router.get("/create_projects", checkAuthentication, async (req, res) => {
   try {
     res.render("create_projects", {
       logged_in: req.session.logged_in,
@@ -96,13 +112,13 @@ router.get("/create_projects", async (req, res) => {
   }
 });
 
-router.get("/create_tasks/:id", async (req, res) => {
+router.get("/create_tasks/:id", checkAuthentication, async (req, res) => {
   try {
-    const dbResponse = await Project.findOne({ where: { id: req.params.id } });
-    const formatData = await dbResponse.get({ plain: true });
-    console.log("formatData:", formatData);
-
-    res.render("create_tasks", { project: formatData });
+    const dbResponse = await Project.findOne({ where: { id: req.params.id }})
+    const formatData = await dbResponse.get( {plain:true} )
+    console.log("formatData:", formatData)
+    
+    res.render("create_tasks", {project: formatData});
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
@@ -127,16 +143,17 @@ router.get("/create_tasks/:id", async (req, res) => {
 //   }
 // });
 
-router.get("/project/:id", (req, res) => {
+router.get("/project/:id",checkAuthentication, (req, res) => {
   Project.findByPk(req.params.id, {
     include: [Task],
   }).then((projData) => {
     const hbsData = projData.get({ plain: true });
-    hbsData.due_date = dayJs(hbsData.due_date).format("MMMM, DD, YYYY");
+    hbsData.due_date = dayJs(hbsData.due_date).format("MMMM DD YYYY");
     hbsData.logged_id = req.session.logged_id;
     const currentTime = dayJs();
-    const newDate = currentTime.diff(hbsData.due_date, "days") * -1;
+    const newDate = currentTime.diff(hbsData.due_date, "days");
     hbsData.time_until_due = newDate;
+    console.log("=====\n\nTEST\n\n\n======");
     const dataobj = hbsData.Tasks;
     for (let i = 0; i < dataobj.length; i++) {
       const formattedData = dataobj[i].status;
@@ -150,11 +167,13 @@ router.get("/project/:id", (req, res) => {
         dataobj[i].status = "green";
       }
     }
-    res.render("individual_project", {project: hbsData, logged_in: req.session.logged_in});
+
+    console.log(hbsData);
+    res.render("individual_project", hbsData);
   });
 });
 
-router.get("/project_overview", async (req, res) => {
+router.get("/project_overview", checkAuthentication, async (req, res) => {
   try {
     res.render("project_overview");
   } catch (err) {
@@ -163,14 +182,5 @@ router.get("/project_overview", async (req, res) => {
   }
 });
 
-router.get("/task/:id", (req, res) => {
-  Task.findByPk(req.params.id, {
-    include: [Project],
-  }).then((dbResponse) => {
-    const taskData = dbResponse.get({ plain: true });
-    console.log(taskData);
-    res.render("edit_task", taskData);
-  });
-});
 
 module.exports = router;
