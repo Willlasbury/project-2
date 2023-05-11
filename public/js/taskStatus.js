@@ -1,4 +1,3 @@
-
 const selectedStatus = document.querySelectorAll(".status");
 // const taskForm = document.querySelectorAll(".status");
 const id = document.getElementsByClassName("status");
@@ -36,4 +35,3 @@ for (let i = 0; i < id.length; i++) {
   console.log("element:", element);
   element.addEventListener("change", updateFunction);
 }
-
