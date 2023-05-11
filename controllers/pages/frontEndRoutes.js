@@ -3,20 +3,8 @@ const { Project, User, Task } = require("../../models");
 const express = require('express');
 const dayJs = require("dayjs");
 const projects = require("../../seeds/project");
-const passport = require("passport");
 
-router.use(passport.initialize());
-router.use(passport.session());
-
-function checkAuthentication(req,res,next){
-  if(req.isAuthenticated()){
-      //req.isAuthenticated() will return true if user is logged in
-      next();
-  } else{
-      res.redirect("/login");
-  }
-}
-
+var logged
 // send homepage as initial action
 router.get("/", async (req, res) => {
   try {
@@ -101,7 +89,8 @@ router.get("/sign_up", async (req, res) => {
   }
 });
 
-router.get("/create_projects", checkAuthentication, async (req, res) => {
+router.get("/create_projects", async (req, res) => {
+  if(req.session.logged_in){
   try {
     res.render("create_projects", {
       logged_in: req.session.logged_in,
@@ -110,9 +99,13 @@ router.get("/create_projects", checkAuthentication, async (req, res) => {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
   }
+} else {
+  res.redirect("/login");
+}
 });
 
-router.get("/create_tasks/:id", checkAuthentication, async (req, res) => {
+router.get("/create_tasks/:id",  async (req, res) => {
+  if(req.session.logged_in){
   try {
     const dbResponse = await Project.findOne({ where: { id: req.params.id }})
     const formatData = await dbResponse.get( {plain:true} )
@@ -122,6 +115,9 @@ router.get("/create_tasks/:id", checkAuthentication, async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
+  }}
+  else{
+    res.redirect("/login");
   }
 });
 
@@ -143,7 +139,8 @@ router.get("/create_tasks/:id", checkAuthentication, async (req, res) => {
 //   }
 // });
 
-router.get("/project/:id",checkAuthentication, (req, res) => {
+router.get("/project/:id", (req, res) => {
+  if(req.session.logged_in){
   Project.findByPk(req.params.id, {
     include: [Task],
   }).then((projData) => {
@@ -170,16 +167,22 @@ router.get("/project/:id",checkAuthentication, (req, res) => {
 
     console.log(hbsData);
     res.render("individual_project", hbsData);
-  });
+  })} else{
+    res.redirect("/login");
+  }
 });
 
-router.get("/project_overview", checkAuthentication, async (req, res) => {
+router.get("/project_overview",  async (req, res) => {
+  if(req.session.logged_in){
   try {
     res.render("project_overview");
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
-  }
+  } 
+} else {
+  res.redirect("/login")
+}
 });
 
 
