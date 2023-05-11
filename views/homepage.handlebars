@@ -1,7 +1,12 @@
+<section class="flex flex-col items-center w-11/12">
 {{#if logged_in}}
-<a href="/create_projects" class="flex w-60 justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-20"
+<a href="/create_projects" class="flex w-4/5 justify-center my-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded"
 >Create a project</a>
 {{/if}}
+
 {{#each yourProjects}}
 {{> projects}}
 {{/each}}
+</section>
+
+<script src="js/displayProjects.js"></script>

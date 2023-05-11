@@ -1,23 +1,25 @@
 const displayTime = () => {
-  const timeLeftDisplay = document.querySelector("#time-left");
-  let dueDate = Number(timeLeftDisplay.textContent)
-
-
+  const timeLeftDisplay = document.querySelectorAll(".time-left");
   
-  if (dueDate < 1000*60*60*48 ) {
-    const hourTime = Math.floor((dueDate / (1000*60*60)))
-    return timeLeftDisplay.textContent = `${hourTime} hours left`
-  } else {
-    const dayTime = Math.floor(dueDate / (1000*60*60*24))
-    timeLeftDisplay.textContent = `${dayTime} days left`
+  for (let i = 0; i < timeLeftDisplay.length; i++) {
+    const item = timeLeftDisplay[i];
+    let dueDate = Number(item.textContent);
+    if (dueDate < 0) {
+      item.textContent = `LATE`;
+    }
+    else if (dueDate < 1000 * 60 * 60 * 48) {
+      const hourTime = Math.floor(dueDate / (1000 * 60 * 60));
+    } else {
+      const dayTime = Math.floor(dueDate / (1000 * 60 * 60 * 24));
+      item.textContent = `${dayTime} days left`;
+    }
   }
 };
 
 const runTimer = () => {
-  
   setInterval(displayTime, 60000);
-}
-displayTime()
+};
+displayTime();
 const colorTime = {
   due: 1000 * 60 * 60 * 24,
   onTime: 1000 * 60 * 60 * 24 * 3,
@@ -33,4 +35,4 @@ const projectBackgroud = (timeLeft, colorTime) => {
   });
 };
 
-runTimer()
+runTimer();
