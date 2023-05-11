@@ -31,26 +31,24 @@ router.get("/", async (req, res) => {
         project.time_until_due = newDate;
 
         // add project status param from average of tasks status
-        let netStatus = 0
-        let numTasks = 0
+        let netStatus = 0;
+        let numTasks = 0;
         for (let j = 0; j < tasks.length; j++) {
           const task = tasks[j];
-          netStatus= netStatus + Number(task.status)
-          numTasks++          
+          netStatus = netStatus + Number(task.status);
+          numTasks++;
         }
 
         // TODO: update codes for backgrounds
-        const status = Math.floor(netStatus / numTasks)
-        console.log("status:", status)
+        const status = Math.floor(netStatus / numTasks);
+        console.log("status:", status);
         if (status === 1) {
-          project.status = 'red'
+          project.status = "red";
         } else if (status === 2) {
           project.status = "yellow";
         } else if (status === 3) {
           project.status = "green";
         }
-        
-
       }
       res.render("homepage", {
         yourProjects: filterData,
@@ -100,11 +98,11 @@ router.get("/create_projects", async (req, res) => {
 
 router.get("/create_tasks/:id", async (req, res) => {
   try {
-    const dbResponse = await Project.findOne({ where: { id: req.params.id }})
-    const formatData = await dbResponse.get( {plain:true} )
-    console.log("formatData:", formatData)
-    
-    res.render("create_tasks", {project: formatData});
+    const dbResponse = await Project.findOne({ where: { id: req.params.id } });
+    const formatData = await dbResponse.get({ plain: true });
+    console.log("formatData:", formatData);
+
+    res.render("create_tasks", { project: formatData });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
@@ -139,7 +137,6 @@ router.get("/project/:id", (req, res) => {
     const currentTime = dayJs();
     const newDate = currentTime.diff(hbsData.due_date, "days");
     hbsData.time_until_due = newDate;
-    console.log("=====\n\nTEST\n\n\n======");
     const dataobj = hbsData.Tasks;
     for (let i = 0; i < dataobj.length; i++) {
       const formattedData = dataobj[i].status;
@@ -153,9 +150,7 @@ router.get("/project/:id", (req, res) => {
         dataobj[i].status = "green";
       }
     }
-
-    console.log(hbsData);
-    res.render("individual_project", hbsData);
+    res.render("individual_project", {project: hbsData, logged_in: req.session.logged_in});
   });
 });
 
@@ -166,6 +161,14 @@ router.get("/project_overview", async (req, res) => {
     console.log(err);
     return res.status(500).json({ msg: "some error", err: err });
   }
+});
+
+router.get("/task/:id", (req, res) => {
+  Task.findByPk(req.params.id, {}).then((dbResponse) => {
+    const taskData = dbResponse.get({ plain: true });
+    console.log(taskData);
+    res.render("edit_task", taskData);
+  });
 });
 
 module.exports = router;

@@ -1,9 +1,10 @@
 <Section id="project" class="flex flex-col mt-2 pr-8">
-  <h2 class="font-bold text-3xl">{{title}}</h2>
-  <p class="font-bold">Project Due Date: {{due_date}}</p>
-  <p class="font-bold">Days Until project Due: {{time_until_due}}</p>
+  <h2 class="font-bold text-3xl">{{project.title}}</h2>
+  <p class="font-bold">Project Due Date: {{project.due_date}}</p>
+  <p class="font-bold">Days Until project Due: {{project.time_until_due}}</p>
 
-  {{#each Tasks}}
+  {{#each project.Tasks}}
+  <a href="/task/{{id}}">
     <div
       class="task-card border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500"
     >
@@ -16,6 +17,7 @@
         <option value="2">Need-Assistance</option>
         <option value="3">On-Track</option>
       </select>
+      </a>
 
       {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
     </div>
