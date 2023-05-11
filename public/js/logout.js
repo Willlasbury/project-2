@@ -10,7 +10,7 @@ logoutBtn.addEventListener("click", async (event) => {
     });
     // console.log("response:", myMiddleware,(req, res))
     if (response.ok) {
-      location.href("/");
+      location.href = "/login";
     } else {
       next();
     }
