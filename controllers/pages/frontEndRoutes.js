@@ -1,8 +1,6 @@
 const router = require("express").Router();
 const { Project, User, Task } = require("../../models");
-const express = require('express');
 const dayJs = require("dayjs");
-const projects = require("../../seeds/project");
 
 var logged
 // send homepage as initial action
