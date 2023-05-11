@@ -1,6 +1,4 @@
-
 const selectedStatus = document.querySelectorAll(".status");
-// const taskForm = document.querySelectorAll(".status");
 const id = document.getElementsByClassName("status");
 
 function updateFunction(e) {
@@ -37,3 +35,9 @@ for (let i = 0; i < id.length; i++) {
   element.addEventListener("change", updateFunction);
 }
 
+document.querySelector("#new-task").addEventListener("click", async (event) => {
+  event.preventDefault();
+  const projId = document.querySelector("#project").dataset.id
+
+  location.href = `/create_tasks/${projId}`;
+});

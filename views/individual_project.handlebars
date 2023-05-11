@@ -1,4 +1,4 @@
-<Section id="project" class="flex flex-col mt-2 pr-8">
+<section id="project" class="flex flex-col mt-2 pr-8" data-id={{project.id}}>
   <h2 class="font-bold text-3xl">{{project.title}}</h2>
   <p class="font-bold">Project Due Date: {{project.due_date}}</p>
   <p class="font-bold">Days Until project Due: {{project.time_until_due}}</p>
@@ -23,5 +23,8 @@
       {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
     </div>
   {{/each}}
+  <button id="new-task"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40"
+>Add Task</button>
+</section>
   <script src="/js/project.js"></script>
-</Section>

@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
         const tasks = filterData[i].Tasks;
+        console.log("tasks:", tasks)
 
         // add due date params
         const currentTime = dayJs();
