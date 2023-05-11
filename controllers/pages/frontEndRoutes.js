@@ -8,8 +8,9 @@ router.get("/", async (req, res) => {
   try {
     // check if user has an id in session
     if (req.session.user_id) {
-      const userId = req.session.user_id;
-
+      // const userId = req.session.user_id;
+      // console.log('===\n\n\ntest\n\n\n===')
+      // console.log("userId:", userId)
       const dbResponse = await Project.findAll({
         include: [
           { model: Task },
@@ -17,8 +18,11 @@ router.get("/", async (req, res) => {
         ],
       });
       const filterData = await dbResponse.map((project) =>
-        project.get({ plain: true })
+      project.get({ plain: true })
       );
+      // console.log('===\n\n\ntest\n\n\n===')
+
+      // console.log("filterData:", filterData)
 
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
