@@ -18,25 +18,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.get("/:name", (req, res) => {
-//   Task.findAll({
-//     where: {
-//       name: req.params.name,
-//     },
-//   })
-//     .then((tasks) => {
-//       if (tasks.length === 0) {
-//         return res
-//           .status(404)
-//           .json({ msg: "no tasks with this name in database!" });
-//       }
-//       res.json(tasks);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json({ msg: "error occurred", err });
-//     });
-// });
 
 router.get("/:id", (req, res) => {
   Task.findByPk(req.params.id)
@@ -53,6 +34,7 @@ router.get("/:id", (req, res) => {
       res.status(500).json({ msg: "error occurred", err });
     });
 });
+
 
 router.post("/", (req, res) => {
   Task.create({
