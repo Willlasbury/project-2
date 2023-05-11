@@ -3,11 +3,8 @@ const displayTime = () => {
   
   for (let i = 0; i < timeLeftDisplay.length; i++) {
     const item = timeLeftDisplay[i];
-    console.log("item.textContent:", item.textContent)
     let dueDate = Number(item.textContent);
-    
     if (dueDate < 0) {
-
       item.textContent = `LATE`;
     }
     else if (dueDate < 1000 * 60 * 60 * 48) {
