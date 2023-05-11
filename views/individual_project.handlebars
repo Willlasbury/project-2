@@ -1,0 +1,24 @@
+<Section id="project" class="flex flex-col mt-2 pr-8">
+  <h2 class="font-bold text-3xl">{{title}}</h2>
+  <p class="font-bold">Project Due Date: {{due_date}}</p>
+  <p class="font-bold">Days Until project Due: {{time_until_due}}</p>
+
+  {{#each Tasks}}
+    <div
+      class="task-card border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500"
+    >
+      <button id="taskCompleted">Completed</button>
+      <h3 class="font-bold">{{name}} </h3>
+      <p>{{description}}</p>
+      <select name="status" class="status" id="{{id}}">
+        <option value=" "></option>
+        <option value="1">Off-track</option>
+        <option value="2">Need-Assistance</option>
+        <option value="3">On-Track</option>
+      </select>
+
+      {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
+    </div>
+  {{/each}}
+  <script src="/js/createProject.js"></script>
+</Section>
