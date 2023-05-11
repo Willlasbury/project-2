@@ -137,7 +137,6 @@ router.get("/project/:id", (req, res) => {
     const currentTime = dayJs();
     const newDate = currentTime.diff(hbsData.due_date, "days");
     hbsData.time_until_due = newDate;
-    console.log("=====\n\nTEST\n\n\n======");
     const dataobj = hbsData.Tasks;
     for (let i = 0; i < dataobj.length; i++) {
       const formattedData = dataobj[i].status;
@@ -151,9 +150,7 @@ router.get("/project/:id", (req, res) => {
         dataobj[i].status = "green";
       }
     }
-
-    console.log(hbsData);
-    res.render("individual_project", hbsData);
+    res.render("individual_project", {project: hbsData, logged_in: req.session.logged_in});
   });
 });
 
