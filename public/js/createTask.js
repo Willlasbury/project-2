@@ -6,7 +6,7 @@ document.querySelector("form").addEventListener("submit", event=>{
         name: document.querySelector("#task-name").value,
         due_date: document.querySelector("#due-date").value,
         description: document.querySelector("#description").value,
-        status: 1,
+        status: null,
         ProjectId: projID
     }
     console.log(taskObj);
