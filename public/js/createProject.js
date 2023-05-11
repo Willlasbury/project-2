@@ -11,6 +11,7 @@ document.querySelector("form").addEventListener("submit", async (event) => {
       "Content-Type": "application/json",
     },
   });
+  console.log("response:", response)
   const projectData = await response.json();
   const id = projectData.id;
   if (response.ok) {

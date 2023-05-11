@@ -109,23 +109,6 @@ router.get("/create_tasks/:id", async (req, res) => {
   }
 });
 
-// router.get("/individual_projects/:id", async (req, res) => {
-//   try {
-//     const dbResponse = await Task.findByPk({
-//       where: { ProjectId: req.params.id },
-//     });
-//     console.log("dbResponse:", dbResponse);
-//     console.log("===\n\n\ntest\n\n\n===");
-//     const project = dbResponse.map((task) => task.get({ plain: true }));
-//     // const project = await dbResponse.get({ plain: true })
-//     console.log("project:", project);
-
-//     res.render("individual_project", { project: project });
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).json({ msg: "some error", err: err });
-//   }
-// });
 
 router.get("/project/:id", (req, res) => {
   Project.findByPk(req.params.id, {
@@ -150,7 +133,10 @@ router.get("/project/:id", (req, res) => {
         dataobj[i].status = "green";
       }
     }
-    res.render("individual_project", {project: hbsData, logged_in: req.session.logged_in});
+    res.render("individual_project", {
+      project: hbsData,
+      logged_in: req.session.logged_in,
+    });
   });
 });
 
