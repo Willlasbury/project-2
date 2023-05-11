@@ -1,7 +1,10 @@
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
   //   const projID = document.querySelector("#title").dataset.id;
-  const projID = document.querySelector("[data-id]");
+  const projEl = document.getElementById("title");
+  console.log("projEl:", projEl);
+  const projID = projEl.getAttribute("data-id");
+
   console.log("projID:", projID);
   const taskID = document.querySelector("button").id;
   console.log("taskId:", taskID);
@@ -13,7 +16,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
     ProjectId: projID,
   };
   console.log(taskObj);
-  fetch(`/api/task/${e.target.id}`, {
+  fetch(`/api/tasks/${taskID}`, {
     method: "PUT",
     body: JSON.stringify(taskObj),
     headers: {

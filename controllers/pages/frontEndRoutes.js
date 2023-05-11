@@ -132,10 +132,10 @@ router.get("/project/:id", (req, res) => {
     include: [Task],
   }).then((projData) => {
     const hbsData = projData.get({ plain: true });
-    hbsData.due_date = dayJs(hbsData.due_date).format("MMMM DD YYYY");
+    hbsData.due_date = dayJs(hbsData.due_date).format("MMMM, DD, YYYY");
     hbsData.logged_id = req.session.logged_id;
     const currentTime = dayJs();
-    const newDate = currentTime.diff(hbsData.due_date, "days");
+    const newDate = currentTime.diff(hbsData.due_date, "days") * -1;
     hbsData.time_until_due = newDate;
     const dataobj = hbsData.Tasks;
     for (let i = 0; i < dataobj.length; i++) {
@@ -164,7 +164,9 @@ router.get("/project_overview", async (req, res) => {
 });
 
 router.get("/task/:id", (req, res) => {
-  Task.findByPk(req.params.id, {}).then((dbResponse) => {
+  Task.findByPk(req.params.id, {
+    include: [Project],
+  }).then((dbResponse) => {
     const taskData = dbResponse.get({ plain: true });
     console.log(taskData);
     res.render("edit_task", taskData);
