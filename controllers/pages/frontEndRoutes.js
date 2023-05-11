@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
 
         // TODO: update codes for backgrounds
         const status = Math.floor(netStatus / numTasks)
-        console.log("status:", status)
+        // console.log("status:", status)
         if (status === 1) {
           project.status = 'red'
         } else if (status === 2) {
