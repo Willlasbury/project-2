@@ -1,8 +1,6 @@
 const router = require("express").Router();
 const { Project, User, Task } = require("../../models");
-const express = require('express');
 const dayJs = require("dayjs");
-const projects = require("../../seeds/project");
 
 var logged
 // send homepage as initial action
@@ -24,6 +22,7 @@ router.get("/", async (req, res) => {
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
         const tasks = filterData[i].Tasks;
+        console.log("tasks:", tasks)
 
         // add due date params
         const currentTime = dayJs();
@@ -42,7 +41,7 @@ router.get("/", async (req, res) => {
 
         // TODO: update codes for backgrounds
         const status = Math.floor(netStatus / numTasks)
-        console.log("status:", status)
+        // console.log("status:", status)
         if (status === 1) {
           project.status = 'red'
         } else if (status === 2) {

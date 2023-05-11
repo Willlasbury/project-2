@@ -3,12 +3,15 @@ const displayTime = () => {
   
   for (let i = 0; i < timeLeftDisplay.length; i++) {
     const item = timeLeftDisplay[i];
+   
     let dueDate = Number(item.textContent);
     if (dueDate < 0) {
       item.textContent = `LATE`;
     }
     else if (dueDate < 1000 * 60 * 60 * 48) {
+      console.log("item:", item)
       const hourTime = Math.floor(dueDate / (1000 * 60 * 60));
+      item.textContent = `${hourTime} hours left`;
     } else {
       const dayTime = Math.floor(dueDate / (1000 * 60 * 60 * 24));
       item.textContent = `${dayTime} days left`;
