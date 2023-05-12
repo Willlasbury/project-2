@@ -22,7 +22,6 @@ router.get("/", async (req, res) => {
       for (let i = 0; i < filterData.length; i++) {
         const project = filterData[i];
         const tasks = filterData[i].Tasks;
-        console.log("tasks:", tasks)
 
         // add due date params
         const currentTime = dayJs();
@@ -39,19 +38,37 @@ router.get("/", async (req, res) => {
           numTasks++          
         }
 
-        // TODO: update codes for backgrounds
+        // update codes for backgrounds
         const status = Math.floor(netStatus / numTasks)
-        // console.log("status:", status)
+
+        console.log("project.time_until_due:", project.time_until_due)
+
         if (status === 1) {
           project.status = 'red'
+          project.icon = '😱'
         } else if (status === 2) {
           project.status = "yellow";
+          project.icon = '😬'
         } else if (status === 3) {
           project.status = "green";
+          project.icon = '👍'
         }
-        
+         if (project.time_until_due < 1000 * 60 * 60 * 24) {
+           project.status = project.status + '-600'
+         } 
+         else if (project.time_until_due < 1000 * 60 * 60 * 24 * 7) {
+           project.status = project.status + '-500'
+         } 
+         else {
+           project.status = project.status + '-400'
+         } 
+
+
+
+
 
       }
+
       res.render("homepage", {
         yourProjects: filterData,
         logged_in: req.session.logged_in,
