@@ -1,32 +1,35 @@
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project 2</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.min.js"
+    ></script>
+  </head>
 
-<body class="bg-gray-200">
-  <header>
-    <h1 class="text-3xl font-extrabold m-5 text-indigo-700">@aGlance</h1>
-  </header>
-  <nav class="mx-5 font-extrabold bg-slate-500">
-    <ul class="">
-      <a class="mr-2 hover:text-gray-700" href="/">Home</a>
-      {{#if logged_in}}
-      <button id="logout">Logout</button>
-      <script src="/js/logout.js"></script>
-      {{else}}
-      <a class="mr-2 hover:text-gray-700" href="/login">Login</a>
-      {{/if}}
-    </ul>
-  </nav>
-  <main class="flex flex-grow justify-center m-5 w-10/12">
+  <body class="bg-gray-200">
+    <header>
+      <h1 class="text-3xl font-extrabold m-5 text-indigo-700">@aGlance</h1>
+    </header>
+    <nav class="mx-5 font-extrabold bg-slate-500">
+      <ul class="">
+        <a class="mr-2 hover:text-gray-700" href="/">Home</a>
+        {{#if logged_in}}
+          <button id="logout">Logout</button>
+          <script src="/js/logout.js"></script>
+        {{else}}
+          <a class="mr-2 hover:text-gray-700" href="/login">Login</a>
+        {{/if}}
+      </ul>
+    </nav>
+    <main class="flex flex-grow justify-center m-5 w-10/12">
 
-    {{{body}}}
+      {{{body}}}
 
-  </main>
-</body>
+    </main>
+  </body>
 
 </html>
