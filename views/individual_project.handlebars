@@ -1,28 +1,30 @@
-<section id="project" class="flex flex-col mt-2 pr-8" data-id={{project.id}}>
+<section id="project" class="flex flex-col mt-2 pr-8 items-center" data-id={{project.id}}>
   <h2 class="font-bold text-3xl">{{project.title}}</h2>
   <p class="font-bold">Project Due Date: {{project.due_date}}</p>
   <p class="font-bold">Days Until project Due: {{project.time_until_due}}</p>
 
   {{#each project.Tasks}}
   <a href="/task/{{id}}">
-    <div class="task-card hover:bg-blue-700 border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500">
-      <button id="taskCompleted">Completed</button>
-      <h3 class="font-bold">{{name}} </h3>
-      <p>{{description}}</p>
-  </a>
-  <select name="status" class="status" id="{{id}}">
-    <option value=" "></option>
-    <option value="1">Off-track</option>
-    <option value="2">Need-Assistance</option>
-    <option value="3">On-Track</option>
-  </select>
-
-
-  {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
-  </div>
+    <div
+      class="task-card  hover:drop-shadow-xl border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500"
+    >
+      
+      <h3 class="font-bold p-1 text-center">{{name}} </h3>
+      <p class="p-1"><span class="font-bold">Description:</span> {{description}}</p>
+      <p class="p-1"> <span class="font-bold">Due Date:</span> {{due_date}}</p>
+      </a>
+      {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
+    </div>
+   <select name="status" class="status hover:drop-shadow-xl w-11/12 border border-blue-700 rounded" id="{{id}}">
+        <option value=" "></option>
+        <option value="1">Off-track</option>
+        <option value="2">Need-Assistance</option>
+        <option value="3">On-Track</option>
+      </select>
+      <button id="taskCompleted" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded my-2 w-3/4">Completed</button>
   {{/each}}
   <button id="new-task"
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40">Add
-    Task</button>
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-1/2 m-2"
+>Add Task</button>
 </section>
 <script src="/js/project.js"></script>
