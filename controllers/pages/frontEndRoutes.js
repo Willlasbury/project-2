@@ -168,4 +168,16 @@ router.get("/project_overview",  async (req, res) => {
 });
 
 
+router.get("/task/:id", (req, res) => {
+  Task.findByPk(req.params.id, {
+    include: [Project],
+  }).then((dbResponse) => {
+    const taskData = dbResponse.get({ plain: true });
+    console.log(taskData);
+    res.render("edit_task", taskData);
+  });
+});
+
+
+
 module.exports = router;
