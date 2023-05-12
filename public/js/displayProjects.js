@@ -1,8 +1,10 @@
 const displayTime = () => {
   const timeLeftDisplay = document.querySelectorAll(".time-left");
+  const timeLeftSpan = document.querySelectorAll('.time-left-span');
 
   for (let i = 0; i < timeLeftDisplay.length; i++) {
     const item = timeLeftDisplay[i];
+    const span = timeLeftSpan[i]
 
     let dueDate = Number(item.textContent);
     if (dueDate < 0) {
@@ -10,34 +12,25 @@ const displayTime = () => {
     } else if (dueDate < 1000 * 60 * 60 * 48) {
       console.log("item:", item);
       const hourTime = Math.floor(dueDate / (1000 * 60 * 60));
-      item.textContent = `${hourTime} hours left`;
+      item.textContent = `${hourTime}`;
+      span.textContent = 'hours left'
     } else {
       const dayTime = Math.floor(dueDate / (1000 * 60 * 60 * 24));
-      item.textContent = `${dayTime} days left`;
+      item.textContent = `${dayTime}`
+      span.textContent = 'days left'
+      ;
     }
   }
 };
 
-const runTimer = () => {
-  setInterval(displayTime, 60000);
-};
+// const runTimer = () => {
+//   setInterval(displayTime, 60000);
+// };
+
 displayTime();
-const colorTime = {
-  due: 1000 * 60 * 60 * 24,
-  onTime: 1000 * 60 * 60 * 24 * 3,
-  farOut: 1000 * 60 * 60 * 24 * 7,
-};
+// runTimer();
 
-const projectBackgroud = (timeLeft, colorTime) => {
-  Object.keys(colorTime).forEach((option) => {
-    if (timeLeft < colorTime[option]) {
-      console.log("===\n\n\ntest\n\n\n===");
-      console.log("1", colorTime[option]);
-    }
-  });
-};
 
-runTimer();
 
 document
   .querySelector("#project-completed")
