@@ -29,6 +29,7 @@ function updateFunction(e) {
   location.reload();
 }
 
+
 for (let i = 0; i < id.length; i++) {
   const element = id[i];
   console.log("element:", element);
@@ -41,3 +42,14 @@ document.querySelector("#new-task").addEventListener("click", async (event) => {
 
   location.href = `/create_tasks/${projId}`;
 });
+document.querySelector("#taskCompleted").addEventListener("click", (event =>{
+  event.preventDefault();
+  console.log("this is the id", event.target.id);
+  const response = fetch(`/api/tasks/${event.target.id}`, {
+    method: "DESTROY",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  location.reload();
+}))
