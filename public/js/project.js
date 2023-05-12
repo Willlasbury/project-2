@@ -37,7 +37,20 @@ for (let i = 0; i < id.length; i++) {
 
 document.querySelector("#new-task").addEventListener("click", async (event) => {
   event.preventDefault();
-  const projId = document.querySelector("#project").dataset.id
+  const projId = document.querySelector("#project").dataset.id;
 
   location.href = `/create_tasks/${projId}`;
+});
+
+document.querySelector("#taskCompleted").addEventListener("click", (event) => {
+  const taskId = document.querySelector(".task-card").dataset.id;
+  event.preventDefault();
+  console.log("this is the id", taskId);
+  const response = fetch(`/api/tasks/${taskId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  location.reload();
 });

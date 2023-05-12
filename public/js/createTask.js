@@ -4,9 +4,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
 
   const taskObj = {
     name: document.querySelector("#task-name").value,
-    due_date: dayJs(document.querySelector("#due-date").value).format(
-      "MMMM, DD, YYYY"
-    ),
+    due_date: document.querySelector("#due-date").value,
     description: document.querySelector("#description").value,
     status: null,
     ProjectId: projID,
