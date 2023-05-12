@@ -1,15 +1,14 @@
 const displayTime = () => {
   const timeLeftDisplay = document.querySelectorAll(".time-left");
-  
+
   for (let i = 0; i < timeLeftDisplay.length; i++) {
     const item = timeLeftDisplay[i];
-   
+
     let dueDate = Number(item.textContent);
     if (dueDate < 0) {
       item.textContent = `LATE`;
-    }
-    else if (dueDate < 1000 * 60 * 60 * 48) {
-      console.log("item:", item)
+    } else if (dueDate < 1000 * 60 * 60 * 48) {
+      console.log("item:", item);
       const hourTime = Math.floor(dueDate / (1000 * 60 * 60));
       item.textContent = `${hourTime} hours left`;
     } else {
@@ -39,3 +38,18 @@ const projectBackgroud = (timeLeft, colorTime) => {
 };
 
 runTimer();
+
+document
+  .querySelector("#project-completed")
+  .addEventListener("click", (event) => {
+    const projectId = document.querySelector("#project-article").dataset.id;
+    event.preventDefault();
+    console.log("this is the id", projectId);
+    const response = fetch(`/api/projects/${projectId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    location.reload();
+  });
