@@ -22,7 +22,6 @@ router.get("/", async (req, res) => {
         const project = filterData[i];
         const tasks = filterData[i].Tasks;
 
-
         // add due date params
         const currentTime = dayJs();
         const newDate = currentTime.diff(project.due_date) * -1;
@@ -39,31 +38,28 @@ router.get("/", async (req, res) => {
         }
 
         // update codes for backgrounds
-        const status = Math.floor(netStatus / numTasks)
+        const status = Math.floor(netStatus / numTasks);
 
-        console.log("project.time_until_due:", project.time_until_due)
+        console.log("project.time_until_due:", project.time_until_due);
 
         if (status === 1) {
-          project.status = 'red'
-          project.icon = '😱'
+          project.status = "red";
+          project.icon = "😱";
         } else if (status === 2) {
           project.status = "yellow";
-          project.icon = '😬'
+          project.icon = "😬";
         } else if (status === 3) {
           project.status = "green";
-          project.icon = '👍'
+          project.icon = "👍";
         }
 
-         if (project.time_until_due < 1000 * 60 * 60 * 24) {
-           project.status = project.status + '-600'
-         } 
-         else if (project.time_until_due < 1000 * 60 * 60 * 24 * 7) {
-           project.status = project.status + '-500'
-         } 
-         else {
-           project.status = project.status + '-400'
-         } 
-
+        if (project.time_until_due < 1000 * 60 * 60 * 24) {
+          project.status = project.status + "-600";
+        } else if (project.time_until_due < 1000 * 60 * 60 * 24 * 7) {
+          project.status = project.status + "-500";
+        } else {
+          project.status = project.status + "-400";
+        }
       }
 
       res.render("homepage", {
@@ -195,6 +191,17 @@ router.get("/task/:id", (req, res) => {
     taskData.due_date = dayJs(taskData.due_date).format("MM/DD/YYYY");
 
     res.render("edit_task", taskData);
+  });
+});
+
+router.get("/projects/edit/:id", (req, res) => {
+  Project.findByPk(req.params.id, {}).then((dbResponse) => {
+    const projData = dbResponse.get({ plain: true });
+    console.log("projData:", projData);
+    console.log("due_date", projData.due_date);
+    projData.due_date = dayJs(projData.due_date).format("MM/DD/YYYY");
+
+    res.render("edit_projects", projData);
   });
 });
 

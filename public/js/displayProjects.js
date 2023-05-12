@@ -42,9 +42,9 @@ runTimer();
 document
   .querySelector("#project-completed")
   .addEventListener("click", (event) => {
-    const projectId = document.querySelector("#project-article").dataset.id;
     event.preventDefault();
-    console.log("this is the id", projectId);
+    const projectId = document.querySelector("#project").dataset.id;
+    console.log("projectId:", projectId);
     const response = fetch(`/api/projects/${projectId}`, {
       method: "DELETE",
       headers: {
