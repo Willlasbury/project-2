@@ -5,26 +5,24 @@
 
   {{#each project.Tasks}}
   <a href="/task/{{id}}">
-    <div
-      class="task-card hover:bg-blue-700 border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500"
-    >
+    <div class="task-card hover:bg-blue-700 border-solid border-2 border-blue-950 my-2 rounded bg-{{status}}-500">
       <button id="taskCompleted">Completed</button>
       <h3 class="font-bold">{{name}} </h3>
       <p>{{description}}</p>
-      </a>
-      <select name="status" class="status" id="{{id}}">
-        <option value=" "></option>
-        <option value="1">Off-track</option>
-        <option value="2">Need-Assistance</option>
-        <option value="3">On-Track</option>
-      </select>
-      
+  </a>
+  <select name="status" class="status" id="{{id}}">
+    <option value=" "></option>
+    <option value="1">Off-track</option>
+    <option value="2">Need-Assistance</option>
+    <option value="3">On-Track</option>
+  </select>
 
-      {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
-    </div>
+
+  {{!-- <button class="del-btn" data-proj-id="{{id}}">Delete me!</button> --}}
+  </div>
   {{/each}}
   <button id="new-task"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40"
->Add Task</button>
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40">Add
+    Task</button>
 </section>
-  <script src="/js/project.js"></script>
+<script src="/js/project.js"></script>
