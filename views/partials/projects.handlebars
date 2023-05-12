@@ -1,14 +1,9 @@
 <article
-  class="flex flex-row space-between w-11/12 rounded bg-green-400 justify-center my-2"
+  class="flex flex-row space-between w-11/12 rounded bg-green-400 hover:drop-shadow-xl border-solid border-2 border-blue-950 justify-center my-2"
 >
-  <a href="/project/{{id}}">
-  <section>
-
-    <h3 class="text-lg">{{title}}</h3>
-    <h3
-        class="time-left text-lg"
-        
-      >{{time_until_due}}</h3>
+  <a class="w-full text-center " href="/project/{{id}}">
+    <h3 class="text-lg font-bold">{{title}}</h3>
+    <h3 class="time-left text-lg font-bold"
+        >{{time_until_due}}</h3>
   </a>
-  </section>
 </article>
