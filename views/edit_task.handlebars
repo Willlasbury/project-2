@@ -7,7 +7,10 @@
     <textarea name="task-name" class="max-w h-8 border-solid border-2 border-blue-950 my-2"
       id="task-name">{{name}}</textarea>
     <label for="task-name">Due date</label>
-    <textarea class="max-w h-8 border-solid border-2 border-blue-950 my-2" id="due-date">{{due_date}}</textarea>
+    {{!-- <textarea class="max-w h-8 border-solid border-2 border-blue-950 my-2" id="due-date">{{due_date}}</textarea> --}}
+     </div>
+        <input datepicker type="text" class="  max-w h-8 border-solid border-2 border-blue-950 my-2" autocomplete="off" value="{{due_date}}" placeholder="Select date" id="due-date">
+        </div>
     <label for="task-name">Description</label>
     <textarea class="max-w h-30 border-solid border-2 border-blue-950 my-2" id="description">{{description}}</textarea>
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-700 rounded w-40"
