@@ -35,7 +35,7 @@ app.use(allRoutes);
 const User = require("./models/User");
 const Task = require("./models/task");
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`listening to port ${PORT}`);
   });
