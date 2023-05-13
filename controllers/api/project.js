@@ -59,25 +59,27 @@ router.get("/edit/:id", async (req, res) => {
   }
 });
 
-router.put("edit/:id", (req, res) => {
-  Project.update(
-    {
-      title: req.body.title,
-    },
-    {
-      where: {
-        id: req.params.id,
-      },
-    }
-  )
-    .then((updatedProject) => {
-      res.json(updatedProject);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json(err);
-    });
-});
+// router.put("edit/:id", (req, res) => {
+//   console.log(":", )
+//   Project.update(
+//     {
+//       title: req.body.title,
+//       due_date: req.body.due_date
+//     },
+//     {
+//       where: {
+//         id: req.params.id,
+//       },
+//     }
+//   )
+//     .then((updatedProject) => {
+//       res.json(updatedProject);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.json(err);
+//     });
+// });
 
 // create new project
 router.post("/", async (req, res) => {
@@ -103,6 +105,7 @@ router.put("/:id", (req, res) => {
   Project.update(
     {
       title: req.body.title,
+      due_date: req.body.due_date,
     },
     {
       where: {

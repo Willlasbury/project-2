@@ -2,7 +2,6 @@ document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
 
   const projectId = document.querySelector("#project-section").dataset.id;
-  console.log("projectId:", projectId);
 
   const projObj = {
     title: document.querySelector("#project").value,
