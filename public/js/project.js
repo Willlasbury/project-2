@@ -2,9 +2,6 @@ const selectedStatus = document.querySelectorAll(".status");
 const id = document.getElementsByClassName("status");
 
 function updateFunction(e) {
-  console.log("e.target:", e.target.id);
-  console.log(e.target.value);
-  console.log("e:", e);
   let taskStatus = "";
   console.log("selectedStatus:", selectedStatus.selectedIndex);
   if (e.target.value == "1") {
@@ -17,21 +14,17 @@ function updateFunction(e) {
   const body = {
     status: taskStatus,
   };
-  console.log("body:", body);
-  console.log("taskStatus:", taskStatus);
   const response = fetch(`/api/tasks/${e.target.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  });
-  location.reload();
+  }).then(location.reload());
 }
 
 for (let i = 0; i < id.length; i++) {
   const element = id[i];
-  console.log("element:", element);
   element.addEventListener("change", updateFunction);
 }
 
@@ -42,9 +35,8 @@ document.querySelector("#new-task").addEventListener("click", async (event) => {
   location.href = `/create_tasks/${projId}`;
 });
 
-const completeBtn = document.querySelectorAll(".taskCompleted")
-completeBtn.forEach(button => {
-  
+const completeBtn = document.querySelectorAll(".taskCompleted");
+completeBtn.forEach((button) => {
   button.addEventListener("click", (event) => {
     const taskId = document.querySelector(".task-card").dataset.id;
     event.preventDefault();
@@ -57,5 +49,4 @@ completeBtn.forEach(button => {
     });
     location.reload();
   });
-  
 });
