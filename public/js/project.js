@@ -20,8 +20,7 @@ function updateFunction(e) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  });
-  location.reload();
+  }).then(location.reload());
 }
 
 for (let i = 0; i < id.length; i++) {
@@ -36,9 +35,8 @@ document.querySelector("#new-task").addEventListener("click", async (event) => {
   location.href = `/create_tasks/${projId}`;
 });
 
-const completeBtn = document.querySelectorAll(".taskCompleted")
-completeBtn.forEach(button => {
-  
+const completeBtn = document.querySelectorAll(".taskCompleted");
+completeBtn.forEach((button) => {
   button.addEventListener("click", (event) => {
     const taskId = document.querySelector(".task-card").dataset.id;
     event.preventDefault();
@@ -51,5 +49,4 @@ completeBtn.forEach(button => {
     });
     location.reload();
   });
-  
 });
