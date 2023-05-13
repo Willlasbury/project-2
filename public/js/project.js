@@ -2,9 +2,6 @@ const selectedStatus = document.querySelectorAll(".status");
 const id = document.getElementsByClassName("status");
 
 function updateFunction(e) {
-  console.log("e.target:", e.target.id);
-  console.log(e.target.value);
-  console.log("e:", e);
   let taskStatus = "";
   console.log("selectedStatus:", selectedStatus.selectedIndex);
   if (e.target.value == "1") {
@@ -17,8 +14,6 @@ function updateFunction(e) {
   const body = {
     status: taskStatus,
   };
-  console.log("body:", body);
-  console.log("taskStatus:", taskStatus);
   const response = fetch(`/api/tasks/${e.target.id}`, {
     method: "PUT",
     headers: {
@@ -31,7 +26,6 @@ function updateFunction(e) {
 
 for (let i = 0; i < id.length; i++) {
   const element = id[i];
-  console.log("element:", element);
   element.addEventListener("change", updateFunction);
 }
 

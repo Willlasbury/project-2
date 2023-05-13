@@ -144,16 +144,14 @@ router.get("/project/:id", (req, res) => {
     }).then((projData) => {
       const hbsData = projData.get({ plain: true });
       hbsData.due_date = dayJs(hbsData.due_date).format("MMMM DD, YYYY");
-      hbsData.logged_id = req.session.logged_id;
+      // hbsData.logged_id = req.session.logged_id;
       const currentTime = dayJs();
       const newDate = currentTime.diff(hbsData.due_date, "days") * -1;
       hbsData.time_until_due = newDate;
-      console.log("=====\n\nTEST\n\n\n======");
       const dataobj = hbsData.Tasks;
       for (let i = 0; i < dataobj.length; i++) {
-        dataobj[i].due_date = dayJs(dataobj.due_date).format("MMMM DD, YYYY");
+        dataobj[i].due_date = dayJs(dataobj[i].due_date).format("MMMM DD, YYYY");
         const formattedData = dataobj[i].status;
-        console.log("projData:", formattedData);
         if (formattedData === 1) {
           dataobj[i].status = "red-500";
           console.log("test:");

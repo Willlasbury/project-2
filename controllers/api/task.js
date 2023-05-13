@@ -54,6 +54,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  console.log("req.body:", req.body)
   Task.update(
     {
       name: req.body.name,
@@ -112,6 +113,7 @@ router.get("/project/:id", async (req, res) => {
     res.status(500).json({ msg: "error occurred", err });
   }
 });
+
 router.get("/user/:id", async (req, res) => {
   try {
     const tasks = await User.findOne({
