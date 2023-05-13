@@ -32,9 +32,12 @@ displayTime();
 
 
 
-document
-  .querySelector("#project-completed")
-  .addEventListener("click", (event) => {
+const completeBtns = document.querySelectorAll("button")
+
+completeBtns.forEach(button => {
+
+  button.addEventListener("click", (event) => {
+    console.log('===\n\n\ntest\n\n\n===')
     event.preventDefault();
     const projectId = document.querySelector("#project").dataset.id;
     console.log("projectId:", projectId);
@@ -46,3 +49,5 @@ document
     });
     location.reload();
   });
+  
+})
