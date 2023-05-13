@@ -20,8 +20,8 @@ function updateFunction(e) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
-  });
-  location.reload();
+  }).then(location.reload())
+  
 }
 
 for (let i = 0; i < id.length; i++) {
