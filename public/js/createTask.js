@@ -1,5 +1,3 @@
-
-
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
   const projID = document.querySelector("#title").dataset.id;
@@ -8,7 +6,6 @@ document.querySelector("form").addEventListener("submit", (event) => {
     name: document.querySelector("#task-name").value,
     due_date: document.querySelector("#due-date").value,
     description: document.querySelector("#description").value,
-    status: null,
     ProjectId: projID,
   };
   console.log(taskObj);

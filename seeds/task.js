@@ -17,7 +17,7 @@ const tasks = [
       name: "finish project routes",
       due_date: 05 / 13 / 2023,
       description: "finish the routes associated with the projects model",
-      status: 3,
+      status: 4,
       ProjectId: 1,
     },
   ];
