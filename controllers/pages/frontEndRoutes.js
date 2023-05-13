@@ -51,6 +51,9 @@ router.get("/", async (req, res) => {
         } else if (status === 3) {
           project.status = "green";
           project.icon = "👍";
+        } else if (status === 4) {
+          project.status = "blue";
+          project.icon = "🆕";
         }
 
         if (project.time_until_due < 1000 * 60 * 60 * 24) {
@@ -152,12 +155,14 @@ router.get("/project/:id", (req, res) => {
         const formattedData = dataobj[i].status;
         console.log("projData:", formattedData);
         if (formattedData === 1) {
-          dataobj[i].status = "red";
+          dataobj[i].status = "red-500";
           console.log("test:");
         } else if (formattedData === 2) {
-          dataobj[i].status = "yellow";
+          dataobj[i].status = "yellow-400";
         } else if (formattedData === 3) {
-          dataobj[i].status = "green";
+          dataobj[i].status = "green-400";
+        } else if (formattedData === 4) {
+          dataobj[i].status = "sky-400";
         }
       }
       res.render("individual_project", {

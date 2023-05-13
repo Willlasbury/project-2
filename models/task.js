@@ -19,6 +19,7 @@ Task.init(
     status: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      defaultValue: 4,
     },
   },
   {
