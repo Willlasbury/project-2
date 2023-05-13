@@ -42,15 +42,20 @@ document.querySelector("#new-task").addEventListener("click", async (event) => {
   location.href = `/create_tasks/${projId}`;
 });
 
-document.querySelector("#taskCompleted").addEventListener("click", (event) => {
-  const taskId = document.querySelector(".task-card").dataset.id;
-  event.preventDefault();
-  console.log("this is the id", taskId);
-  const response = fetch(`/api/tasks/${taskId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
+const completeBtn = document.querySelectorAll(".taskCompleted")
+completeBtn.forEach(button => {
+  
+  button.addEventListener("click", (event) => {
+    const taskId = document.querySelector(".task-card").dataset.id;
+    event.preventDefault();
+    console.log("this is the id", taskId);
+    const response = fetch(`/api/tasks/${taskId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    location.reload();
   });
-  location.reload();
+  
 });
