@@ -1,10 +1,10 @@
 const displayTime = () => {
   const timeLeftDisplay = document.querySelectorAll(".time-left");
-  const timeLeftSpan = document.querySelectorAll('.time-left-span');
+  const timeLeftSpan = document.querySelectorAll(".time-left-span");
 
   for (let i = 0; i < timeLeftDisplay.length; i++) {
     const item = timeLeftDisplay[i];
-    const span = timeLeftSpan[i]
+    const span = timeLeftSpan[i];
 
     let dueDate = Number(item.textContent);
     if (dueDate < 0) {
@@ -13,12 +13,11 @@ const displayTime = () => {
       console.log("item:", item);
       const hourTime = Math.floor(dueDate / (1000 * 60 * 60));
       item.textContent = `${hourTime}`;
-      span.textContent = 'hours left'
+      span.textContent = "hours left";
     } else {
       const dayTime = Math.floor(dueDate / (1000 * 60 * 60 * 24));
-      item.textContent = `${dayTime}`
-      span.textContent = 'days left'
-      ;
+      item.textContent = `${dayTime}`;
+      span.textContent = "days left";
     }
   }
 };
@@ -30,14 +29,11 @@ const displayTime = () => {
 displayTime();
 // runTimer();
 
+const completeBtns = document.querySelectorAll("button");
 
-
-const completeBtns = document.querySelectorAll("button")
-
-completeBtns.forEach(button => {
-
+completeBtns.forEach((button) => {
   button.addEventListener("click", (event) => {
-    console.log('===\n\n\ntest\n\n\n===')
+    console.log("===\n\n\ntest\n\n\n===");
     event.preventDefault();
     const projectId = document.querySelector("#project").dataset.id;
     console.log("projectId:", projectId);
@@ -49,5 +45,4 @@ completeBtns.forEach(button => {
     });
     location.reload();
   });
-  
-})
+});
